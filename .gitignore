@@ -1,0 +1,13 @@
+/target/
+/.mvn-cache/
+/data/
+/logs/
+*.db
+*.db-wal
+*.db-shm
+*.db-journal
+.idea/
+*.iml
+.classpath
+.project
+.settings/
