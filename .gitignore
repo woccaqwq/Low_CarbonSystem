@@ -3,6 +3,9 @@
 /data/
 /logs/
 /docs/superpowers/
+/scripts/build-iteration2-design.py
+/scripts/render-design-word.ps1
+/scripts/render-iteration2-diagrams.cjs
 *.db
 *.db-wal
 *.db-shm

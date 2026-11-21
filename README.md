@@ -94,5 +94,6 @@ src/test/resources/sql/invalid_init_data.sql
 设计图/                 迭代一设计图
 docs/development/       迭代二实现与交接说明
 docs/design/iteration2/  迭代二图册、接口及字段清单
-scripts/                设计图与 Word 的生成和检查工具
 ```
+
+设计图与 Word 成品已随仓库交付。文档生成、渲染及检查脚本仅保留在本地，不再随 GitHub 仓库分发；Java 编译、测试、打包和运行不依赖这些脚本。

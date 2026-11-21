@@ -12,6 +12,8 @@
 
 ## 构建与检查
 
+本节记录生成说明书时使用的本地工具和历史验证过程。三个文档辅助脚本已按用户要求停止在 GitHub 分发，Word 内保留的脚本路径也属于生成时的历史记录；仓库继续交付 Word 成品和设计图册，Java 工程不依赖这些脚本。
+
 使用已配置运行包中的 Python/python-docx 和 Node/sharp，生成工具为 `scripts/build-iteration2-design.py`。先执行 `--figures-only --node <运行包Node> --modules-dir <运行包node_modules>` 生成简图，再执行不带参数的脚本生成 Word。脚本只写新 Word 与 `target/design-word/`。
 
 本次标准渲染器诊断为 Windows 运行包缺少 LibreOffice；随后通过 `scripts/render-design-word.ps1 -PopplerBin <运行包Poppler目录> -PythonExe <运行包Python>` 调用本机 Word 后台只读导出，再由运行包 Poppler 生成页面图片，未调用用户安装的 LibreOffice。PDF、图片和文本提取文件仅作检查，均位于被忽略的 target 目录。

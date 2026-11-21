@@ -38,10 +38,9 @@
 
 ```powershell
 mvn -o -B "-Dmaven.repo.local=.mvn-cache" package
-node scripts/render-iteration2-diagrams.cjs --check
 ```
 
-队友首次运行去掉 `-o` 联网下载依赖，并安装 Node.js 18 或以上后运行图册检查。Java/Maven 运行环境须使用 `mvn -version` 核对；若 Node 未加入 PATH，可使用已安装 Node 的绝对路径。
+队友首次运行去掉 `-o` 联网下载依赖，Java/Maven 运行环境须使用 `mvn -version` 核对。图册与 Word 的生成、渲染及检查脚本已按用户要求停止在仓库分发；现有检查结论保留为历史验收证据，图册成品与可编辑源继续交付。Java 工程不需要这些脚本或 Node.js。
 
 测试报告在 `target/surefire-reports/`，数据层构建产物在 `target/low-carbon-system-0.2.0-SNAPSHOT.jar`，Word 检查输出在 `target/design-word/`。这些目录被 Git 忽略，团队应从源码重建。当前 JAR 无 Main-Class，也未内嵌 SQLite JDBC；可双击的最终应用由后续 GUI 与打包集成提供。
 

@@ -19,9 +19,7 @@
 
 ## 验证
 
-```powershell
-node scripts/render-iteration2-diagrams.cjs --check
-```
+交付时使用本地 `render-iteration2-diagrams.cjs --check` 完成核对。该工具已按用户要求停止在 GitHub 分发，以下保留当时的验证过程与结论；当前图册维护方式见 [图册说明](../design/iteration2/README.md)。
 
 校验范围为类型/方法引用、成对连接重载、实现与工厂映射、生成文本、时序分支/参与者和图片存在性。另需逐图检查布局与独立核对业务语义；不将此校验当作 Mermaid 引擎、Java 编译或业务单元测试。
 已完成十张预览的布局检查和独立只读核对；按核对意见明确取消其他意向允许返回 0，并细化 CSV 清理失败的 suppressed 语义。图与清单已重新生成校验。
