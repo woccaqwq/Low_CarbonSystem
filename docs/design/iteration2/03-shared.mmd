@@ -1,0 +1,104 @@
+classDiagram
+  class SessionUser {
+    -int userId
+    -String username
+    -String nickname
+    -Role role
+    -int creditScore
+    +from(...)
+    +isAdmin(...)
+  }
+  class OperationLog {
+    -int logId
+    -Integer userId
+    -String action
+    -String detail
+    -LocalDateTime createdAt
+    -String username
+    -String nickname
+  }
+  class SysConfig {
+    -String configKey
+    -String configValue
+    -LocalDateTime updatedAt
+  }
+  class StatQuery {
+    -LocalDate from
+    -LocalDate to
+    -Integer userId
+    +builder(...)
+  }
+  class StatCounts {
+    -long onSaleItemCount
+    -long offShelfItemCount
+    -long flowedItemCount
+    -long pendingFlowCount
+    -long dealFlowCount
+    -long cancelledFlowCount
+    -long itemCount
+    -long flowCount
+    +getItemCount(...)
+    +getFlowCount(...)
+  }
+  class CategoryStat {
+    -Integer categoryId
+    -String categoryName
+    -StatCounts counts
+  }
+  class MonthStat {
+    -YearMonth month
+    -StatCounts counts
+  }
+  class StatOverview {
+    -StatCounts counts
+    -long userCount
+    -double averageCreditScore
+  }
+  class ErrorCode {
+    <<enumeration>>
+    -String message
+    +getMessage(...)
+  }
+  class BusinessException {
+    -ErrorCode code
+    +getCode(...)
+  }
+  class ValidationException {
+    -String field
+    +getField(...)
+  }
+  class DataAccessException {
+  }
+  class CsvExporter {
+    +export(...)
+  }
+  class AppLogger {
+    -Clock clock
+    -java.util.logging.Logger delegate
+    -DailyLogHandler handler
+    -boolean closed
+    +log(...)
+    +close(...)
+  }
+  class DailyLogHandler {
+    -Path directory
+    -ZoneId zone
+    -FileChannel lockChannel
+    -FileLock directoryLock
+    -BufferedWriter writer
+    -LocalDate openDate
+    -boolean closed
+    +publish(...)
+    +close(...)
+  }
+  class SafeLogFormatter {
+    -DateTimeFormatter timestamp
+    +format(...)
+  }
+  CategoryStat "0..*" -- "1" StatCounts : counts
+  MonthStat "0..*" -- "1" StatCounts : counts
+  StatOverview "0..*" -- "1" StatCounts : counts
+  ValidationException --|> BusinessException : extends
+  BusinessException ..> ErrorCode : fixed message
+  AppLogger *-- DailyLogHandler : owns / closes
+  DailyLogHandler ..> SafeLogFormatter : formats

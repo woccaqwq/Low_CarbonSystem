@@ -1,0 +1,57 @@
+digraph UML {
+graph [rankdir=TB, bgcolor="white", pad="0.35", nodesep="0.55", ranksep="0.8", splines=polyline, overlap=false];
+node [shape=plain, fontname="Microsoft YaHei", fontsize=11];
+edge [fontname="Microsoft YaHei", fontsize=9, color="#64748b", arrowsize=0.7];
+fontname="Microsoft YaHei"; fontsize=16;
+UserDao [label=<<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" WIDTH="190" COLOR="#315b87"><TR><TD WIDTH="188" BGCOLOR="#dce9f8" CELLPADDING="8">&lt;&lt;interface&gt;&gt;<BR/><B>UserDao</B></TD></TR><TR><TD WIDTH="188" ALIGN="LEFT" CELLPADDING="7">+ findById(...)<BR ALIGN="LEFT"/>+ findByUsername(...)<BR ALIGN="LEFT"/>+ insert(...)<BR ALIGN="LEFT"/>+ updatePassword(...)<BR ALIGN="LEFT"/>+ updateCreditScore(...)<BR ALIGN="LEFT"/>+ updateStatus(...)<BR ALIGN="LEFT"/>+ updateLastLogin(...)<BR ALIGN="LEFT"/>+ findByPage(...)<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+CategoryDao [label=<<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" WIDTH="190" COLOR="#315b87"><TR><TD WIDTH="188" BGCOLOR="#dce9f8" CELLPADDING="8">&lt;&lt;interface&gt;&gt;<BR/><B>CategoryDao</B></TD></TR><TR><TD WIDTH="188" ALIGN="LEFT" CELLPADDING="7">+ findById(...)<BR ALIGN="LEFT"/>+ findAll(...)<BR ALIGN="LEFT"/>+ insert(...)<BR ALIGN="LEFT"/>+ update(...)<BR ALIGN="LEFT"/>+ deleteById(...)<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+ItemDao [label=<<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" WIDTH="190" COLOR="#315b87"><TR><TD WIDTH="188" BGCOLOR="#dce9f8" CELLPADDING="8">&lt;&lt;interface&gt;&gt;<BR/><B>ItemDao</B></TD></TR><TR><TD WIDTH="188" ALIGN="LEFT" CELLPADDING="7">+ findById(...)<BR ALIGN="LEFT"/>+ insert(...)<BR ALIGN="LEFT"/>+ update(...)<BR ALIGN="LEFT"/>+ updateStatus(...)<BR ALIGN="LEFT"/>+ increaseViewCount(...)<BR ALIGN="LEFT"/>+ existsOnSale(...)<BR ALIGN="LEFT"/>+ search(...)<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+FavoriteDao [label=<<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" WIDTH="190" COLOR="#315b87"><TR><TD WIDTH="188" BGCOLOR="#dce9f8" CELLPADDING="8">&lt;&lt;interface&gt;&gt;<BR/><B>FavoriteDao</B></TD></TR><TR><TD WIDTH="188" ALIGN="LEFT" CELLPADDING="7">+ insert(...)<BR ALIGN="LEFT"/>+ deleteByUserAndItem(...)<BR ALIGN="LEFT"/>+ exists(...)<BR ALIGN="LEFT"/>+ findByUser(...)<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+FlowRecordDao [label=<<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" WIDTH="190" COLOR="#315b87"><TR><TD WIDTH="188" BGCOLOR="#dce9f8" CELLPADDING="8">&lt;&lt;interface&gt;&gt;<BR/><B>FlowRecordDao</B></TD></TR><TR><TD WIDTH="188" ALIGN="LEFT" CELLPADDING="7">+ insert(...)<BR ALIGN="LEFT"/>+ findById(...)<BR ALIGN="LEFT"/>+ updateStatus(...)<BR ALIGN="LEFT"/>+ existsPending(...)<BR ALIGN="LEFT"/>+ findByUser(...)<BR ALIGN="LEFT"/>+ cancelOtherPending(...)<BR ALIGN="LEFT"/>+ cancel(...)<BR ALIGN="LEFT"/>+ findByBuyer(...)<BR ALIGN="LEFT"/>+ findBySeller(...)<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+ReviewDao [label=<<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" WIDTH="190" COLOR="#315b87"><TR><TD WIDTH="188" BGCOLOR="#dce9f8" CELLPADDING="8">&lt;&lt;interface&gt;&gt;<BR/><B>ReviewDao</B></TD></TR><TR><TD WIDTH="188" ALIGN="LEFT" CELLPADDING="7">+ insert(...)<BR ALIGN="LEFT"/>+ existsByFlowAndFrom(...)<BR ALIGN="LEFT"/>+ findByUser(...)<BR ALIGN="LEFT"/>+ avgScoreOf(...)<BR ALIGN="LEFT"/>+ findById(...)<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+StatDao [label=<<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" WIDTH="190" COLOR="#315b87"><TR><TD WIDTH="188" BGCOLOR="#dce9f8" CELLPADDING="8">&lt;&lt;interface&gt;&gt;<BR/><B>StatDao</B></TD></TR><TR><TD WIDTH="188" ALIGN="LEFT" CELLPADDING="7">+ countByCategory(...)<BR ALIGN="LEFT"/>+ countByMonth(...)<BR ALIGN="LEFT"/>+ countItems(...)<BR ALIGN="LEFT"/>+ countFlows(...)<BR ALIGN="LEFT"/>+ getOverview(...)<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+OperationLogDao [label=<<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" WIDTH="190" COLOR="#315b87"><TR><TD WIDTH="188" BGCOLOR="#dce9f8" CELLPADDING="8">&lt;&lt;interface&gt;&gt;<BR/><B>OperationLogDao</B></TD></TR><TR><TD WIDTH="188" ALIGN="LEFT" CELLPADDING="7">+ insert(...)<BR ALIGN="LEFT"/>+ findRecent(...)<BR ALIGN="LEFT"/>+ findById(...)<BR ALIGN="LEFT"/>+ findByPage(...)<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+SysConfigDao [label=<<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" WIDTH="190" COLOR="#315b87"><TR><TD WIDTH="188" BGCOLOR="#dce9f8" CELLPADDING="8">&lt;&lt;interface&gt;&gt;<BR/><B>SysConfigDao</B></TD></TR><TR><TD WIDTH="188" ALIGN="LEFT" CELLPADDING="7">+ findByKey(...)<BR ALIGN="LEFT"/>+ findAll(...)<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+UserDaoImpl [label=<<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" WIDTH="190" COLOR="#315b87"><TR><TD WIDTH="188" BGCOLOR="#dce9f8" CELLPADDING="8">&lt;&lt;implementation sample&gt;&gt;<BR/><B>UserDaoImpl</B></TD></TR></TABLE>>];
+BaseDao [label=<<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" WIDTH="207" COLOR="#315b87"><TR><TD WIDTH="205" BGCOLOR="#dce9f8" CELLPADDING="8">&lt;&lt;abstract&gt;&gt;<BR/><B>BaseDao</B></TD></TR><TR><TD WIDTH="205" ALIGN="LEFT" CELLPADDING="7">- database : DBUtil {final}<BR ALIGN="LEFT"/></TD></TR><TR><TD WIDTH="205" ALIGN="LEFT" CELLPADDING="7"># withConnection(...)<BR ALIGN="LEFT"/># onConnection(...)<BR ALIGN="LEFT"/># query(...)<BR ALIGN="LEFT"/># update(...)<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+DBUtil [label=<<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" WIDTH="221" COLOR="#315b87"><TR><TD WIDTH="219" BGCOLOR="#dce9f8" CELLPADDING="8"><B>DBUtil</B></TD></TR><TR><TD WIDTH="219" ALIGN="LEFT" CELLPADDING="7">- databasePath : Path {final}<BR ALIGN="LEFT"/></TD></TR><TR><TD WIDTH="219" ALIGN="LEFT" CELLPADDING="7">+ getInstance(...)<BR ALIGN="LEFT"/>+ forPath(...)<BR ALIGN="LEFT"/>+ getConnection(...)<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+DaoFactory [label=<<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" WIDTH="190" COLOR="#315b87"><TR><TD WIDTH="188" BGCOLOR="#dce9f8" CELLPADDING="8"><B>DaoFactory</B></TD></TR><TR><TD WIDTH="188" ALIGN="LEFT" CELLPADDING="7">+ getUserDao(...)<BR ALIGN="LEFT"/>+ getStatDao(...)<BR ALIGN="LEFT"/>+ getSysConfigDao(...)<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+ItemQuery [label=<<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" WIDTH="234" COLOR="#315b87"><TR><TD WIDTH="232" BGCOLOR="#dce9f8" CELLPADDING="8">&lt;&lt;immutable&gt;&gt;<BR/><B>ItemQuery</B></TD></TR><TR><TD WIDTH="232" ALIGN="LEFT" CELLPADDING="7">- keyword : String {final}<BR ALIGN="LEFT"/>- categoryId : Integer {final}<BR ALIGN="LEFT"/>- ownerId : Integer {final}<BR ALIGN="LEFT"/>- minPrice : Double {final}<BR ALIGN="LEFT"/>- maxPrice : Double {final}<BR ALIGN="LEFT"/>- tradeType : TradeType {final}<BR ALIGN="LEFT"/>- status : ItemStatus {final}<BR ALIGN="LEFT"/>- orderBy : String {final}<BR ALIGN="LEFT"/>- pageNo : int {final}<BR ALIGN="LEFT"/>- pageSize : int {final}<BR ALIGN="LEFT"/></TD></TR><TR><TD WIDTH="232" ALIGN="LEFT" CELLPADDING="7">+ builder(...)<BR ALIGN="LEFT"/>+ getSort(...)<BR ALIGN="LEFT"/>+ getOrderBy(...)<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+PageResult [label=<<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" WIDTH="194" COLOR="#315b87"><TR><TD WIDTH="192" BGCOLOR="#dce9f8" CELLPADDING="8">&lt;&lt;immutable container&gt;&gt;<BR/><B>PageResult</B></TD></TR><TR><TD WIDTH="192" ALIGN="LEFT" CELLPADDING="7">- items : List&lt;T&gt; {final}<BR ALIGN="LEFT"/>- total : int {final}<BR ALIGN="LEFT"/>- pageNo : int {final}<BR ALIGN="LEFT"/>- pageSize : int {final}<BR ALIGN="LEFT"/></TD></TR><TR><TD WIDTH="192" ALIGN="LEFT" CELLPADDING="7">+ getTotalPages(...)<BR ALIGN="LEFT"/>+ isEmpty(...)<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+SortStrategy [label=<<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" WIDTH="190" COLOR="#315b87"><TR><TD WIDTH="188" BGCOLOR="#dce9f8" CELLPADDING="8">&lt;&lt;interface&gt;&gt;<BR/><B>SortStrategy</B></TD></TR><TR><TD WIDTH="188" ALIGN="LEFT" CELLPADDING="7">+ toOrderBy(...)<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+TimeDescStrategy [label=<<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" WIDTH="190" COLOR="#315b87"><TR><TD WIDTH="188" BGCOLOR="#dce9f8" CELLPADDING="8"><B>TimeDescStrategy</B></TD></TR></TABLE>>];
+PriceAscStrategy [label=<<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" WIDTH="190" COLOR="#315b87"><TR><TD WIDTH="188" BGCOLOR="#dce9f8" CELLPADDING="8"><B>PriceAscStrategy</B></TD></TR></TABLE>>];
+CreditDescStrategy [label=<<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" WIDTH="190" COLOR="#315b87"><TR><TD WIDTH="188" BGCOLOR="#dce9f8" CELLPADDING="8"><B>CreditDescStrategy</B></TD></TR></TABLE>>];
+UserDaoImpl -> UserDao [xlabel="implements",taillabel="",headlabel="",constraint=false,style=dashed,arrowhead=empty];
+UserDaoImpl -> BaseDao [xlabel="extends",taillabel="",headlabel="",constraint=false,arrowhead=empty];
+BaseDao -> DBUtil [xlabel="opens ordinary connections",taillabel="",headlabel="",constraint=false,style=dashed,arrowhead=vee];
+DaoFactory -> UserDao [xlabel="returns 9 DAO interfaces (sample)",taillabel="",headlabel="",constraint=false,style=dashed,arrowhead=vee];
+ItemQuery -> SortStrategy [xlabel="validates and freezes ORDER BY",taillabel="",headlabel="",constraint=false,style=dashed,arrowhead=vee];
+TimeDescStrategy -> SortStrategy [xlabel="implements",taillabel="",headlabel="",constraint=false,style=dashed,arrowhead=empty];
+PriceAscStrategy -> SortStrategy [xlabel="implements",taillabel="",headlabel="",constraint=false,style=dashed,arrowhead=empty];
+CreditDescStrategy -> SortStrategy [xlabel="implements",taillabel="",headlabel="",constraint=false,style=dashed,arrowhead=empty];
+{rank=same; DaoFactory;UserDaoImpl;BaseDao;DBUtil;}
+DaoFactory -> UserDaoImpl [style=invis,weight=100];
+UserDaoImpl -> BaseDao [style=invis,weight=100];
+BaseDao -> DBUtil [style=invis,weight=100];
+{rank=same; UserDao;CategoryDao;ItemDao;}
+UserDao -> CategoryDao [style=invis,weight=100];
+CategoryDao -> ItemDao [style=invis,weight=100];
+{rank=same; FavoriteDao;FlowRecordDao;ReviewDao;}
+FavoriteDao -> FlowRecordDao [style=invis,weight=100];
+FlowRecordDao -> ReviewDao [style=invis,weight=100];
+{rank=same; StatDao;OperationLogDao;SysConfigDao;}
+StatDao -> OperationLogDao [style=invis,weight=100];
+OperationLogDao -> SysConfigDao [style=invis,weight=100];
+{rank=same; ItemQuery;PageResult;SortStrategy;}
+ItemQuery -> PageResult [style=invis,weight=100];
+PageResult -> SortStrategy [style=invis,weight=100];
+{rank=same; TimeDescStrategy;PriceAscStrategy;CreditDescStrategy;}
+TimeDescStrategy -> PriceAscStrategy [style=invis,weight=100];
+PriceAscStrategy -> CreditDescStrategy [style=invis,weight=100];
+DaoFactory -> UserDao [style=invis,weight=100,minlen=2];
+UserDao -> FavoriteDao [style=invis,weight=100,minlen=2];
+FavoriteDao -> StatDao [style=invis,weight=100,minlen=2];
+StatDao -> ItemQuery [style=invis,weight=100,minlen=2];
+ItemQuery -> TimeDescStrategy [style=invis,weight=100,minlen=2];
+}

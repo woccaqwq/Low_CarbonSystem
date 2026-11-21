@@ -1,0 +1,132 @@
+{
+  "id": "07-review",
+  "title": "评价与信用事务接入时序",
+  "subtitle": "ReviewService 尚未实现；评价、唯一约束与原子信用增量已有实现。",
+  "participants": [
+    {
+      "id": "S",
+      "label": "ReviewService（待实现）",
+      "planned": true
+    },
+    {
+      "id": "D",
+      "label": "DBUtil / Connection",
+      "planned": false
+    },
+    {
+      "id": "F",
+      "label": "FlowRecordDao",
+      "planned": false
+    },
+    {
+      "id": "U",
+      "label": "UserDao",
+      "planned": false
+    },
+    {
+      "id": "R",
+      "label": "ReviewDao",
+      "planned": false
+    },
+    {
+      "id": "L",
+      "label": "OperationLogDao",
+      "planned": false
+    }
+  ],
+  "events": [
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "D",
+      "text": "getConnection(); setAutoCommit(false)",
+      "reply": false
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "F",
+      "text": "findById(conn, flowId)",
+      "reply": false
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "U",
+      "text": "findById(conn, currentUserId)",
+      "reply": false
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "R",
+      "text": "existsByFlowAndFrom(conn, flowId, fromId)",
+      "reply": false
+    },
+    {
+      "kind": "note",
+      "text": "校验 DEAL、当前操作者为交易双方之一、7 天窗口、评分 1–5、内容最多 200 码点；toId 由交易记录推导。"
+    },
+    {
+      "kind": "alt",
+      "text": "校验与写入成功"
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "R",
+      "text": "insert(conn, Review(flowId, fromId, toId, score, content))",
+      "reply": false
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "U",
+      "text": "updateCreditScore(conn, toId, delta)；检查 1 行",
+      "reply": false
+    },
+    {
+      "kind": "note",
+      "text": "只调整本条评价的接收人：4–5 星 +2，1–2 星 -3，3 星不变。成交双方各 +1 在成交事务中完成。"
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "L",
+      "text": "insert(conn, REVIEW_SUBMIT 安全日志)",
+      "reply": false
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "D",
+      "text": "commit()",
+      "reply": false
+    },
+    {
+      "kind": "else",
+      "text": "资格失败、重复约束或 RuntimeException / SQLException"
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "D",
+      "text": "rollback()；回滚失败附 suppressed",
+      "reply": false
+    },
+    {
+      "kind": "end"
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "D",
+      "text": "close()（try-with-resources）",
+      "reply": false
+    },
+    {
+      "kind": "note",
+      "text": "exists 是业务提示辅助，数据库 UNIQUE(flow_id, from_user_id) 才是重复写入最终约束。DAO 不自动更新信用。"
+    }
+  ]
+}

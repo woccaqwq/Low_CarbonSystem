@@ -1,0 +1,34 @@
+sequenceDiagram
+  autonumber
+  participant UI as 登录界面（待实现）
+  participant S as UserService（待实现）
+  participant U as UserDao
+  participant P as PasswordUtil
+  participant D as DBUtil
+  participant C as Connection
+  participant L as OperationLogDao
+  participant V as SessionUser
+  UI->>S: login(username, rawPassword)
+  Note over UI,V: 先做输入规则与失败次数/锁定检查。口令仅在认证内存流程使用，不写日志或 SessionUser。
+  S->>U: findByUsername(username)
+  U-->>S: Optional<User>
+  S->>P: verify(rawPassword, hash, salt)
+  alt 不存在、口令错误、禁用或锁定
+  S-->>UI: 固定业务错误；不存在与口令错误使用同一提示
+  else 认证成功且账号可用
+  S->>D: getConnection()
+  D-->>S: conn（首次空库自动初始化）
+  S->>C: setAutoCommit(false)
+  S->>U: findById(conn, userId)；再次确认账号可用
+  S->>V: from(currentUser)；用事务内新读用户构造快照
+  S->>U: updateLastLogin(conn, userId, now)；检查 1 行
+  S->>L: insert(conn, OperationLog(userId, LOGIN, 安全摘要))
+  alt 更新命中且所有写入成功
+  S->>C: commit()
+  else RuntimeException 或 SQLException
+  S->>C: rollback()；回滚失败加入 suppressed
+  end
+  S->>C: close()（try-with-resources）
+  S-->>UI: 仅成功返回安全快照；失败抛受控异常
+  end
+  Note over UI,V: SessionManager、失败锁定、GUI 错误展示与 Service 事务编排仍待实现。快照不是实时权限来源。

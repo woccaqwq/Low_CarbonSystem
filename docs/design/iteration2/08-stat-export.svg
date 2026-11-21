@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="1510" viewBox="0 0 1300 1510">
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#294a70"/></marker></defs>
+<rect width="1300" height="1510" fill="white"/>
+<style>text{font-family:"Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#18314b} .body{font-size:12px} .small{font-size:11px}</style>
+<text x="30" y="36" font-size="24" font-weight="bold">统计与 CSV 导出接入时序</text>
+<text x="30" y="65" font-size="13">StatService / StatReport / GUI 尚未实现；统计、配置和 CSV 工具已有实现。</text>
+<text x="30" y="91" class="small">蓝色：已有类型/能力　黄色虚线：待实现接入组件　alt / else：互斥路径　同一 conn：同一数据库事务</text>
+<rect x="16" y="448" width="1268" height="102" fill="none" stroke="#9aaec3" stroke-width="1.1"/>
+<rect x="16" y="596" width="1268" height="220" fill="none" stroke="#9aaec3" stroke-width="1.1"/>
+<rect x="16" y="1090" width="1268" height="294" fill="none" stroke="#9aaec3" stroke-width="1.1"/>
+<rect x="16" y="908" width="1268" height="496" fill="none" stroke="#9aaec3" stroke-width="1.1"/>
+<line x1="125" y1="179" x2="125" y2="1480" stroke="#a8b6c5" stroke-dasharray="6 5"/>
+<rect x="29" y="123" width="192" height="56" rx="4" fill="#fff3d3" stroke="#315b87" stroke-dasharray="5 3"/>
+<text x="125" y="145" text-anchor="middle" font-size="12" font-weight="bold">统计界面（待实现）</text>
+<line x1="335" y1="179" x2="335" y2="1480" stroke="#a8b6c5" stroke-dasharray="6 5"/>
+<rect x="239" y="123" width="192" height="56" rx="4" fill="#fff3d3" stroke="#315b87" stroke-dasharray="5 3"/>
+<text x="335" y="145" text-anchor="middle" font-size="12" font-weight="bold">StatService（待实现）</text>
+<line x1="545" y1="179" x2="545" y2="1480" stroke="#a8b6c5" stroke-dasharray="6 5"/>
+<rect x="449" y="123" width="192" height="56" rx="4" fill="#e5effb" stroke="#315b87" />
+<text x="545" y="145" text-anchor="middle" font-size="12" font-weight="bold">DBUtil / Connection</text>
+<line x1="755" y1="179" x2="755" y2="1480" stroke="#a8b6c5" stroke-dasharray="6 5"/>
+<rect x="659" y="123" width="192" height="56" rx="4" fill="#e5effb" stroke="#315b87" />
+<text x="755" y="145" text-anchor="middle" font-size="12" font-weight="bold">StatDao</text>
+<line x1="965" y1="179" x2="965" y2="1480" stroke="#a8b6c5" stroke-dasharray="6 5"/>
+<rect x="869" y="123" width="192" height="56" rx="4" fill="#e5effb" stroke="#315b87" />
+<text x="965" y="145" text-anchor="middle" font-size="12" font-weight="bold">SysConfigDao</text>
+<line x1="1175" y1="179" x2="1175" y2="1480" stroke="#a8b6c5" stroke-dasharray="6 5"/>
+<rect x="1079" y="123" width="192" height="56" rx="4" fill="#e5effb" stroke="#315b87" />
+<text x="1175" y="145" text-anchor="middle" font-size="12" font-weight="bold">CsvExporter</text>
+<text class="body" x="134" y="225">1. buildReport(from, to)</text>
+<line x1="125" y1="235" x2="335" y2="235" stroke="#294a70"  marker-end="url(#arrow)"/>
+<rect x="27" y="258" width="1246" height="31" fill="#fff8df" stroke="#d7b85f"/>
+<text class="body" x="38" y="275">从受信任当前身份决定个人/平台范围。日期与用户形成不可变 StatQuery。</text>
+<text class="body" x="344" y="307">2. getConnection(); setAutoC</text>
+<text class="body" x="344" y="325">ommit(false)</text>
+<line x1="335" y1="335" x2="545" y2="335" stroke="#294a70"  marker-end="url(#arrow)"/>
+<text class="body" x="344" y="371">3. getOverview(conn, query)</text>
+<line x1="335" y1="381" x2="755" y2="381" stroke="#294a70"  marker-end="url(#arrow)"/>
+<text class="body" x="344" y="417">4. countByCategory(conn, query)</text>
+<line x1="335" y1="427" x2="755" y2="427" stroke="#294a70"  marker-end="url(#arrow)"/>
+<rect x="17" y="450" width="1266" height="31" fill="#eef3f8" stroke="#c5d0dc"/>
+<text class="body" x="38" y="467">loop  需要展示的每个年份；跨年范围逐年读取</text>
+<text class="body" x="344" y="499">5. countByMonth(conn, year, query)；单次返回 12 个月</text>
+<line x1="335" y1="509" x2="755" y2="509" stroke="#294a70"  marker-end="url(#arrow)"/>
+<text class="body" x="344" y="565">6. findByKey(conn, stat.co2.per_item_kg)</text>
+<line x1="335" y1="575" x2="965" y2="575" stroke="#294a70"  marker-end="url(#arrow)"/>
+<rect x="17" y="598" width="1266" height="31" fill="#eef3f8" stroke="#c5d0dc"/>
+<text class="body" x="38" y="615">alt  配置和所有读取有效</text>
+<rect x="27" y="634" width="1246" height="31" fill="#fff8df" stroke="#d7b85f"/>
+<text class="body" x="38" y="651">Service 校验系数格式、非负及有限值；若启用减碳估算，按明确已流转/成交口径计算，不乘全部意向数。</text>
+<text class="body" x="344" y="683">7. commit()</text>
+<line x1="335" y1="693" x2="545" y2="693" stroke="#294a70"  marker-end="url(#arrow)"/>
+<rect x="17" y="716" width="1266" height="31" fill="#eef3f8" stroke="#c5d0dc"/>
+<text class="body" x="38" y="733">else  配置缺失/损坏或 RuntimeException / SQLException</text>
+<text class="body" x="344" y="765">8. rollback()；保留原异常</text>
+<line x1="335" y1="775" x2="545" y2="775" stroke="#294a70"  marker-end="url(#arrow)"/>
+<text class="body" x="344" y="831">9. close()</text>
+<line x1="335" y1="841" x2="545" y2="841" stroke="#294a70"  marker-end="url(#arrow)"/>
+<text class="body" x="134" y="877">10. 仅成功时返回同一份报表快照</text>
+<line x1="335" y1="887" x2="125" y2="887" stroke="#294a70" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+<rect x="17" y="910" width="1266" height="31" fill="#eef3f8" stroke="#c5d0dc"/>
+<text class="body" x="38" y="927">opt  已有有效报表且用户选择导出</text>
+<text class="body" x="134" y="959">11. exportCsv(当前报表, 目标新</text>
+<text class="body" x="134" y="977">路径)</text>
+<line x1="125" y1="987" x2="335" y2="987" stroke="#294a70"  marker-end="url(#arrow)"/>
+<rect x="27" y="1010" width="1246" height="31" fill="#fff8df" stroke="#d7b85f"/>
+<text class="body" x="38" y="1027">导出不重新扩大数据范围。Service 将选定字段映射为表头和数值行，GUI 后台执行。</text>
+<text class="body" x="344" y="1059">12. export(target, headers, rows)</text>
+<line x1="335" y1="1069" x2="1175" y2="1069" stroke="#294a70"  marker-end="url(#arrow)"/>
+<rect x="17" y="1092" width="1266" height="31" fill="#eef3f8" stroke="#c5d0dc"/>
+<text class="body" x="38" y="1109">alt  写入与发布成功</text>
+<text class="body" x="344" y="1141">13. Path（UTF-8 BOM；不请求覆盖已有目标）</text>
+<line x1="1175" y1="1151" x2="335" y2="1151" stroke="#294a70" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+<text class="body" x="134" y="1187">14. 导出成功路径</text>
+<line x1="335" y1="1197" x2="125" y2="1197" stroke="#294a70" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+<rect x="17" y="1220" width="1266" height="31" fill="#eef3f8" stroke="#c5d0dc"/>
+<text class="body" x="38" y="1237">else  IOException 或输入格式错误</text>
+<text class="body" x="344" y="1269">15. 尝试清理暂存文件；失败附 suppressed，保留原异常</text>
+<line x1="1175" y1="1279" x2="335" y2="1279" stroke="#294a70" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+<text class="body" x="134" y="1315">16. 受控导出失败提示（业务错误</text>
+<text class="body" x="134" y="1333">码待定义）</text>
+<line x1="335" y1="1343" x2="125" y2="1343" stroke="#294a70" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+<rect x="27" y="1406" width="1246" height="31" fill="#fff8df" stroke="#d7b85f"/>
+<text class="body" x="38" y="1423">CsvExporter 不依赖 StatReport，尚未实测 Excel GUI。超长数字识别和二次保存行为不由 CSV 工具保证。</text>
+</svg>

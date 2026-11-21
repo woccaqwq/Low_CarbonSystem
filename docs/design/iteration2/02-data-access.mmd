@@ -1,0 +1,138 @@
+classDiagram
+  class UserDao {
+    <<interface>>
+    +findById(...)
+    +findByUsername(...)
+    +insert(...)
+    +updatePassword(...)
+    +updateCreditScore(...)
+    +updateStatus(...)
+    +updateLastLogin(...)
+    +findByPage(...)
+  }
+  class CategoryDao {
+    <<interface>>
+    +findById(...)
+    +findAll(...)
+    +insert(...)
+    +update(...)
+    +deleteById(...)
+  }
+  class ItemDao {
+    <<interface>>
+    +findById(...)
+    +insert(...)
+    +update(...)
+    +updateStatus(...)
+    +increaseViewCount(...)
+    +existsOnSale(...)
+    +search(...)
+  }
+  class FavoriteDao {
+    <<interface>>
+    +insert(...)
+    +deleteByUserAndItem(...)
+    +exists(...)
+    +findByUser(...)
+  }
+  class FlowRecordDao {
+    <<interface>>
+    +insert(...)
+    +findById(...)
+    +updateStatus(...)
+    +existsPending(...)
+    +findByUser(...)
+    +cancelOtherPending(...)
+    +cancel(...)
+    +findByBuyer(...)
+    +findBySeller(...)
+  }
+  class ReviewDao {
+    <<interface>>
+    +insert(...)
+    +existsByFlowAndFrom(...)
+    +findByUser(...)
+    +avgScoreOf(...)
+    +findById(...)
+  }
+  class StatDao {
+    <<interface>>
+    +countByCategory(...)
+    +countByMonth(...)
+    +countItems(...)
+    +countFlows(...)
+    +getOverview(...)
+  }
+  class OperationLogDao {
+    <<interface>>
+    +insert(...)
+    +findRecent(...)
+    +findById(...)
+    +findByPage(...)
+  }
+  class SysConfigDao {
+    <<interface>>
+    +findByKey(...)
+    +findAll(...)
+  }
+  class UserDaoImpl {
+  }
+  class BaseDao {
+    -DBUtil database
+    #withConnection(...)
+    #onConnection(...)
+    #query(...)
+    #update(...)
+  }
+  class DBUtil {
+    -Path databasePath
+    +getInstance(...)
+    +forPath(...)
+    +getConnection(...)
+  }
+  class DaoFactory {
+    +getUserDao(...)
+    +getStatDao(...)
+    +getSysConfigDao(...)
+  }
+  class ItemQuery {
+    -String keyword
+    -Integer categoryId
+    -Integer ownerId
+    -Double minPrice
+    -Double maxPrice
+    -TradeType tradeType
+    -ItemStatus status
+    -String orderBy
+    -int pageNo
+    -int pageSize
+    +builder(...)
+    +getSort(...)
+    +getOrderBy(...)
+  }
+  class PageResult {
+    -List~T~ items
+    -int total
+    -int pageNo
+    -int pageSize
+    +getTotalPages(...)
+    +isEmpty(...)
+  }
+  class SortStrategy {
+    <<interface>>
+    +toOrderBy(...)
+  }
+  class TimeDescStrategy {
+  }
+  class PriceAscStrategy {
+  }
+  class CreditDescStrategy {
+  }
+  UserDaoImpl ..|> UserDao : implements
+  UserDaoImpl --|> BaseDao : extends
+  BaseDao ..> DBUtil : opens ordinary connections
+  DaoFactory ..> UserDao : returns 9 DAO interfaces (sample)
+  ItemQuery ..> SortStrategy : validates and freezes ORDER BY
+  TimeDescStrategy ..|> SortStrategy : implements
+  PriceAscStrategy ..|> SortStrategy : implements
+  CreditDescStrategy ..|> SortStrategy : implements

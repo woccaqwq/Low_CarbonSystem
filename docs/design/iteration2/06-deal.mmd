@@ -1,0 +1,29 @@
+sequenceDiagram
+  autonumber
+  participant S as FlowService（待实现）
+  participant D as DBUtil / Connection
+  participant F as FlowRecordDao
+  participant I as ItemDao
+  participant U as UserDao
+  participant L as OperationLogDao
+  S->>D: getConnection(); setAutoCommit(false)
+  S->>F: findById(conn, flowId)
+  S->>I: findById(conn, itemId)
+  S->>U: findById(conn, operatorId)
+  Note over S,L: 事务内校验当前身份/账号、持有人、物品在架及流转 PENDING。不能只信任 GUI 或旧 SessionUser。
+  alt 校验和每一步写入成功
+  S->>F: updateStatus(conn, flowId, DEAL)
+  F-->>S: 必须命中 1 行；0 为终态或成交冲突
+  S->>I: updateStatus(conn, itemId, FLOWED)；检查 1 行
+  S->>F: cancelOtherPending(conn, itemId, flowId)
+  F-->>S: 取消数量允许为 0（没有其他待确认意向）
+  S->>U: updateCreditScore(conn, sellerId, +1)；检查 1 行
+  S->>U: updateCreditScore(conn, buyerId, +1)；检查 1 行
+  S->>L: insert(conn, 卖家 FLOW_CONFIRM 日志)
+  S->>L: insert(conn, 买家 FLOW_CONFIRM 日志)
+  S->>D: commit()
+  else 业务拒绝、必需单行更新未命中，或 RuntimeException / SQLException
+  S->>D: rollback()；回滚失败附 suppressed
+  end
+  S->>D: close()（try-with-resources）
+  Note over S,L: JDBC 错误由 DAO 包装为 DataAccessException，属于 RuntimeException。只有提交成功才返回成功。文件日志不加入此数据库事务。

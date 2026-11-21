@@ -1,0 +1,149 @@
+{
+  "id": "05-search",
+  "title": "物品检索接入时序",
+  "subtitle": "ItemQuery / DAO / JDBC 已实现；GUI 与 Service 为待接入组件。",
+  "participants": [
+    {
+      "id": "UI",
+      "label": "列表界面（待实现）",
+      "planned": true
+    },
+    {
+      "id": "S",
+      "label": "ItemService（待实现）",
+      "planned": true
+    },
+    {
+      "id": "Q",
+      "label": "ItemQuery / SortStrategy",
+      "planned": false
+    },
+    {
+      "id": "D",
+      "label": "ItemDao",
+      "planned": false
+    },
+    {
+      "id": "B",
+      "label": "DBUtil / Connection",
+      "planned": false
+    },
+    {
+      "id": "SQL",
+      "label": "SQLite",
+      "planned": false
+    }
+  ],
+  "events": [
+    {
+      "kind": "message",
+      "from": "UI",
+      "to": "S",
+      "text": "search(筛选条件)",
+      "reply": false
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "Q",
+      "text": "builder().keyword(...).sort(...).build()",
+      "reply": false
+    },
+    {
+      "kind": "note",
+      "text": "默认 status=ON_SALE；status(null) 才不限状态。分页 1 起、每页 10–100。排序白名单验证后冻结。"
+    },
+    {
+      "kind": "alt",
+      "text": "非法范围、分页或排序"
+    },
+    {
+      "kind": "message",
+      "from": "Q",
+      "to": "S",
+      "text": "IllegalArgumentException",
+      "reply": true
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "UI",
+      "text": "映射字段校验错误",
+      "reply": true
+    },
+    {
+      "kind": "else",
+      "text": "有效查询"
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "D",
+      "text": "search(query)",
+      "reply": false
+    },
+    {
+      "kind": "message",
+      "from": "D",
+      "to": "B",
+      "text": "getConnection()",
+      "reply": false
+    },
+    {
+      "kind": "message",
+      "from": "D",
+      "to": "SQL",
+      "text": "PreparedStatement：COUNT + 组合筛选",
+      "reply": false
+    },
+    {
+      "kind": "message",
+      "from": "SQL",
+      "to": "D",
+      "text": "total",
+      "reply": true
+    },
+    {
+      "kind": "message",
+      "from": "D",
+      "to": "SQL",
+      "text": "PreparedStatement：JOIN + 安全排序 + LIMIT/OFFSET",
+      "reply": false
+    },
+    {
+      "kind": "message",
+      "from": "SQL",
+      "to": "D",
+      "text": "当前昵称、信用、分类投影",
+      "reply": true
+    },
+    {
+      "kind": "message",
+      "from": "D",
+      "to": "B",
+      "text": "close()（普通方法持有的独立连接）",
+      "reply": false
+    },
+    {
+      "kind": "message",
+      "from": "D",
+      "to": "S",
+      "text": "PageResult<Item>",
+      "reply": true
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "UI",
+      "text": "获准范围内的列表与分页元数据",
+      "reply": true
+    },
+    {
+      "kind": "end"
+    },
+    {
+      "kind": "note",
+      "text": "计数与列表是两次查询。需要严格一致快照时，Service 开启读事务并调用 search(conn, query)。"
+    }
+  ]
+}

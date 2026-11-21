@@ -146,3 +146,7 @@ DAO 不自动检查操作人权限，也不替 Service 自动串联其他 DAO。
 模块十一新增 CsvExporter 与 16 项测试，提供 UTF-8 BOM 通用文件导出，见 [模块十一说明](iteration2-module11.md)。CsvExporter 公共工具已有实现，StatReport/StatService、GUI 导出路径与权限、Excel 手工验收仍未接入，不能据此判定 FR-17 整体完成。
 
 模块十二新增 AppLogger 运行日志工具与 17 项测试，支持默认关闭 DEBUG、日期文件、七天窗口清理和异常安全格式，见 [模块十二说明](iteration2-module12.md)。审查后的目录遍历错误回归修复已验证，全量共 253 项通过。实际 App/Service 接入仍待后续开发。用户要求从本阶段建立每两个模块一次本地 Git 提交节奏，详见 [检查点记录](git-checkpoints.md)。
+
+模块十三补充 [迭代二设计图册](../design/iteration2/README.md)、[接口变更与交接](../design/iteration2/interface-changes.md) 及自动生成清单，已为当前实现同步独立图版本。原 Word/PNG 继续保留为历史基线，正式设计文档版本与小组评审仍待后续安排；不再把“没有当前图册”列作待办。
+
+模块十四新增独立的 [迭代二系统设计说明书](../../文本文档/04_迭代2_系统设计说明书.docx) V1.1，已同步当前接口与实现边界，完成逐页排版和独立内容核对，见 [模块十四说明](iteration2-module14.md)。因此“当前 Word 未同步”已有对应新版本；原文档继续冻结，小组三方确认及业务/GUI验收仍待后续。模块十三、十四按约定一起本地提交，不自动推送。

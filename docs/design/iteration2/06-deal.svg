@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="1234" viewBox="0 0 1300 1234">
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#294a70"/></marker></defs>
+<rect width="1300" height="1234" fill="white"/>
+<style>text{font-family:"Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#18314b} .body{font-size:12px} .small{font-size:11px}</style>
+<text x="30" y="36" font-size="24" font-weight="bold">确认成交事务接入时序</text>
+<text x="30" y="65" font-size="13">FlowService 尚未实现；同连接原子能力已通过数据层集成测试。</text>
+<text x="30" y="91" class="small">蓝色：已有类型/能力　黄色虚线：待实现接入组件　alt / else：互斥路径　同一 conn：同一数据库事务</text>
+<rect x="16" y="448" width="1268" height="616" fill="none" stroke="#9aaec3" stroke-width="1.1"/>
+<line x1="125" y1="179" x2="125" y2="1204" stroke="#a8b6c5" stroke-dasharray="6 5"/>
+<rect x="29" y="123" width="192" height="56" rx="4" fill="#fff3d3" stroke="#315b87" stroke-dasharray="5 3"/>
+<text x="125" y="145" text-anchor="middle" font-size="12" font-weight="bold">FlowService（待实现）</text>
+<line x1="335" y1="179" x2="335" y2="1204" stroke="#a8b6c5" stroke-dasharray="6 5"/>
+<rect x="239" y="123" width="192" height="56" rx="4" fill="#e5effb" stroke="#315b87" />
+<text x="335" y="145" text-anchor="middle" font-size="12" font-weight="bold">DBUtil / Connection</text>
+<line x1="545" y1="179" x2="545" y2="1204" stroke="#a8b6c5" stroke-dasharray="6 5"/>
+<rect x="449" y="123" width="192" height="56" rx="4" fill="#e5effb" stroke="#315b87" />
+<text x="545" y="145" text-anchor="middle" font-size="12" font-weight="bold">FlowRecordDao</text>
+<line x1="755" y1="179" x2="755" y2="1204" stroke="#a8b6c5" stroke-dasharray="6 5"/>
+<rect x="659" y="123" width="192" height="56" rx="4" fill="#e5effb" stroke="#315b87" />
+<text x="755" y="145" text-anchor="middle" font-size="12" font-weight="bold">ItemDao</text>
+<line x1="965" y1="179" x2="965" y2="1204" stroke="#a8b6c5" stroke-dasharray="6 5"/>
+<rect x="869" y="123" width="192" height="56" rx="4" fill="#e5effb" stroke="#315b87" />
+<text x="965" y="145" text-anchor="middle" font-size="12" font-weight="bold">UserDao</text>
+<line x1="1175" y1="179" x2="1175" y2="1204" stroke="#a8b6c5" stroke-dasharray="6 5"/>
+<rect x="1079" y="123" width="192" height="56" rx="4" fill="#e5effb" stroke="#315b87" />
+<text x="1175" y="145" text-anchor="middle" font-size="12" font-weight="bold">OperationLogDao</text>
+<text class="body" x="134" y="225">1. getConnection(); setAutoC</text>
+<text class="body" x="134" y="243">ommit(false)</text>
+<line x1="125" y1="253" x2="335" y2="253" stroke="#294a70"  marker-end="url(#arrow)"/>
+<text class="body" x="134" y="289">2. findById(conn, flowId)</text>
+<line x1="125" y1="299" x2="545" y2="299" stroke="#294a70"  marker-end="url(#arrow)"/>
+<text class="body" x="134" y="335">3. findById(conn, itemId)</text>
+<line x1="125" y1="345" x2="755" y2="345" stroke="#294a70"  marker-end="url(#arrow)"/>
+<text class="body" x="134" y="381">4. findById(conn, operatorId)</text>
+<line x1="125" y1="391" x2="965" y2="391" stroke="#294a70"  marker-end="url(#arrow)"/>
+<rect x="27" y="414" width="1246" height="31" fill="#fff8df" stroke="#d7b85f"/>
+<text class="body" x="38" y="431">事务内校验当前身份/账号、持有人、物品在架及流转 PENDING。不能只信任 GUI 或旧 SessionUser。</text>
+<rect x="17" y="450" width="1266" height="31" fill="#eef3f8" stroke="#c5d0dc"/>
+<text class="body" x="38" y="467">alt  校验和每一步写入成功</text>
+<text class="body" x="134" y="499">5. updateStatus(conn, flowId, DEAL)</text>
+<line x1="125" y1="509" x2="545" y2="509" stroke="#294a70"  marker-end="url(#arrow)"/>
+<text class="body" x="134" y="545">6. 必须命中 1 行；0 为终态或成交冲突</text>
+<line x1="545" y1="555" x2="125" y2="555" stroke="#294a70" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+<text class="body" x="134" y="591">7. updateStatus(conn, itemId, FLOWED)；检查 1 行</text>
+<line x1="125" y1="601" x2="755" y2="601" stroke="#294a70"  marker-end="url(#arrow)"/>
+<text class="body" x="134" y="637">8. cancelOtherPending(conn, itemId, flowId)</text>
+<line x1="125" y1="647" x2="545" y2="647" stroke="#294a70"  marker-end="url(#arrow)"/>
+<text class="body" x="134" y="683">9. 取消数量允许为 0（没有其他待确认意向）</text>
+<line x1="545" y1="693" x2="125" y2="693" stroke="#294a70" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+<text class="body" x="134" y="729">10. updateCreditScore(conn, sellerId, +1)；检查 1 行</text>
+<line x1="125" y1="739" x2="965" y2="739" stroke="#294a70"  marker-end="url(#arrow)"/>
+<text class="body" x="134" y="775">11. updateCreditScore(conn, buyerId, +1)；检查 1 行</text>
+<line x1="125" y1="785" x2="965" y2="785" stroke="#294a70"  marker-end="url(#arrow)"/>
+<text class="body" x="134" y="821">12. insert(conn, 卖家 FLOW_CONFIRM 日志)</text>
+<line x1="125" y1="831" x2="1175" y2="831" stroke="#294a70"  marker-end="url(#arrow)"/>
+<text class="body" x="134" y="867">13. insert(conn, 买家 FLOW_CONFIRM 日志)</text>
+<line x1="125" y1="877" x2="1175" y2="877" stroke="#294a70"  marker-end="url(#arrow)"/>
+<text class="body" x="134" y="913">14. commit()</text>
+<line x1="125" y1="923" x2="335" y2="923" stroke="#294a70"  marker-end="url(#arrow)"/>
+<rect x="17" y="946" width="1266" height="31" fill="#eef3f8" stroke="#c5d0dc"/>
+<text class="body" x="38" y="963">else  业务拒绝、必需单行更新未命中，或 RuntimeException / SQLException</text>
+<text class="body" x="134" y="995">15. rollback()；回滚失败附 sup</text>
+<text class="body" x="134" y="1013">pressed</text>
+<line x1="125" y1="1023" x2="335" y2="1023" stroke="#294a70"  marker-end="url(#arrow)"/>
+<text class="body" x="134" y="1079">16. close()（try-with-resourc</text>
+<text class="body" x="134" y="1097">es）</text>
+<line x1="125" y1="1107" x2="335" y2="1107" stroke="#294a70"  marker-end="url(#arrow)"/>
+<rect x="27" y="1130" width="1246" height="31" fill="#fff8df" stroke="#d7b85f"/>
+<text class="body" x="38" y="1147">JDBC 错误由 DAO 包装为 DataAccessException，属于 RuntimeException。只有提交成功才返回成功。文件日志不加入此数据库事务。</text>
+</svg>

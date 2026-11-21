@@ -1,0 +1,125 @@
+{
+  "id": "09-admin-offline",
+  "title": "违规下架事务接入时序",
+  "subtitle": "AdminService 与界面尚未实现；状态写入和业务日志的同连接能力已有实现。",
+  "participants": [
+    {
+      "id": "S",
+      "label": "AdminService（待实现）",
+      "planned": true
+    },
+    {
+      "id": "D",
+      "label": "DBUtil / Connection",
+      "planned": false
+    },
+    {
+      "id": "U",
+      "label": "UserDao",
+      "planned": false
+    },
+    {
+      "id": "I",
+      "label": "ItemDao",
+      "planned": false
+    },
+    {
+      "id": "L",
+      "label": "OperationLogDao",
+      "planned": false
+    },
+    {
+      "id": "A",
+      "label": "AppLogger",
+      "planned": false
+    }
+  ],
+  "events": [
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "D",
+      "text": "getConnection(); setAutoCommit(false)",
+      "reply": false
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "U",
+      "text": "findById(conn, operatorId)",
+      "reply": false
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "I",
+      "text": "findById(conn, itemId)",
+      "reply": false
+    },
+    {
+      "kind": "note",
+      "text": "重新校验账号可用/管理员角色、物品状态与下架原因；理由先做必要内容处理，不记录凭据或完整表单。"
+    },
+    {
+      "kind": "alt",
+      "text": "校验和所有写入成功"
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "I",
+      "text": "updateStatus(conn, itemId, OFF_SHELF)；检查 1 行",
+      "reply": false
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "L",
+      "text": "insert(conn, 管理员动作、物品编号及安全原因摘要)",
+      "reply": false
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "D",
+      "text": "commit()",
+      "reply": false
+    },
+    {
+      "kind": "else",
+      "text": "权限/状态拒绝、0 行或 RuntimeException / SQLException"
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "D",
+      "text": "rollback()；保留回滚失败为 suppressed",
+      "reply": false
+    },
+    {
+      "kind": "end"
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "D",
+      "text": "close()",
+      "reply": false
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "A",
+      "text": "按已确定结果记录运行日志（可选接入）",
+      "reply": false
+    },
+    {
+      "kind": "note",
+      "text": "运行日志 IOException 独立处理，不将已提交业务误报成回滚；已有业务异常不能被日志错误覆盖。"
+    },
+    {
+      "kind": "note",
+      "text": "FR-19 所有者查看下架原因仍缺少专门授权查询/对象关联设计，不能以管理员能看 operation_log 替代。"
+    }
+  ]
+}

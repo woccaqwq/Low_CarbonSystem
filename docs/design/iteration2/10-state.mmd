@@ -1,0 +1,10 @@
+stateDiagram-v2
+  state ItemStatus {
+    ON_SALE --> OFF_SHELF: offline()
+    OFF_SHELF --> ON_SALE: publish()
+    ON_SALE --> FLOWED: markFlowed()
+  }
+  state FlowStatus {
+    PENDING --> DEAL: confirm()
+    PENDING --> CANCELLED: cancel(reason)
+  }

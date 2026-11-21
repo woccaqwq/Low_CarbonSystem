@@ -32,6 +32,8 @@ mvn "-Dmaven.repo.local=.mvn-cache" test
 - 已完成模块十：系统配置按键与全部读取、不可变快照、外部事务支持；新增 20 项测试。
 - 已完成模块十一：通用 UTF-8 BOM CSV 导出、文本转义、数字列、流式输出与失败清理；新增 16 项测试。
 - 已完成模块十二：JDK 运行日志、按天追加、七天清理、DEBUG 开关与安全异常栈；新增 17 项，当前共 253 项测试，package 通过。
+- 已完成模块十三：同步迭代二类图、六张接入时序图、状态图及九 DAO 的完整接口清单，入口见 [迭代二设计图册](docs/design/iteration2/README.md)。
+- 已完成模块十四：整理独立的 [迭代二系统设计说明书](文本文档/04_迭代2_系统设计说明书.docx)，涵盖当前实现、事务与接入边界及全部 DAO 签名。
 - 后续待办：Service、SessionManager 与 GUI 接入等；统计业务与公共工具的分工仍需明确。
 
 完整核对结果、事务模板更正及成员交接清单见 [数据层验收与交接记录](docs/development/iteration2-data-acceptance.md)。数据层验收通过不代表整个迭代二已经完成。
@@ -53,6 +55,8 @@ mvn "-Dmaven.repo.local=.mvn-cache" test
 配置读取见 [系统配置模块说明](docs/development/iteration2-module10.md)。
 文件导出见 [CSV 导出工具说明](docs/development/iteration2-module11.md)。
 运行日志见 [运行日志模块说明](docs/development/iteration2-module12.md)。
+设计同步见 [模块十三说明](docs/development/iteration2-module13.md)。
+Word 设计说明书及验证见 [模块十四说明](docs/development/iteration2-module14.md)。
 Git 按每两个模块一次本地提交管理，见 [Git 检查点记录](docs/development/git-checkpoints.md)。
 
 ## 项目目录
@@ -85,7 +89,9 @@ src/main/java/com/campus/recycle/
 src/test/java/com/campus/recycle/   用户、分类、物品、收藏、流转、评价、统计、操作日志及公共基础测试
 src/test/resources/sql/invalid_init_data.sql
 初始化脚本/             迭代一 SQL 原件，Maven 自动复制到 classpath 的 sql/ 目录
-文本文档/               迭代一需求、设计和分工文档
+文本文档/               迭代一文档原件及独立的迭代二设计说明书
 设计图/                 迭代一设计图
 docs/development/       迭代二实现与交接说明
+docs/design/iteration2/  迭代二图册、接口及字段清单
+scripts/                设计图与 Word 的生成和检查工具
 ```

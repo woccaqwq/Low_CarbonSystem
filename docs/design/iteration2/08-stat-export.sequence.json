@@ -1,0 +1,203 @@
+{
+  "id": "08-stat-export",
+  "title": "统计与 CSV 导出接入时序",
+  "subtitle": "StatService / StatReport / GUI 尚未实现；统计、配置和 CSV 工具已有实现。",
+  "participants": [
+    {
+      "id": "UI",
+      "label": "统计界面（待实现）",
+      "planned": true
+    },
+    {
+      "id": "S",
+      "label": "StatService（待实现）",
+      "planned": true
+    },
+    {
+      "id": "D",
+      "label": "DBUtil / Connection",
+      "planned": false
+    },
+    {
+      "id": "T",
+      "label": "StatDao",
+      "planned": false
+    },
+    {
+      "id": "C",
+      "label": "SysConfigDao",
+      "planned": false
+    },
+    {
+      "id": "X",
+      "label": "CsvExporter",
+      "planned": false
+    }
+  ],
+  "events": [
+    {
+      "kind": "message",
+      "from": "UI",
+      "to": "S",
+      "text": "buildReport(from, to)",
+      "reply": false
+    },
+    {
+      "kind": "note",
+      "text": "从受信任当前身份决定个人/平台范围。日期与用户形成不可变 StatQuery。"
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "D",
+      "text": "getConnection(); setAutoCommit(false)",
+      "reply": false
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "T",
+      "text": "getOverview(conn, query)",
+      "reply": false
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "T",
+      "text": "countByCategory(conn, query)",
+      "reply": false
+    },
+    {
+      "kind": "loop",
+      "text": "需要展示的每个年份；跨年范围逐年读取"
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "T",
+      "text": "countByMonth(conn, year, query)；单次返回 12 个月",
+      "reply": false
+    },
+    {
+      "kind": "end"
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "C",
+      "text": "findByKey(conn, stat.co2.per_item_kg)",
+      "reply": false
+    },
+    {
+      "kind": "alt",
+      "text": "配置和所有读取有效"
+    },
+    {
+      "kind": "note",
+      "text": "Service 校验系数格式、非负及有限值；若启用减碳估算，按明确已流转/成交口径计算，不乘全部意向数。"
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "D",
+      "text": "commit()",
+      "reply": false
+    },
+    {
+      "kind": "else",
+      "text": "配置缺失/损坏或 RuntimeException / SQLException"
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "D",
+      "text": "rollback()；保留原异常",
+      "reply": false
+    },
+    {
+      "kind": "end"
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "D",
+      "text": "close()",
+      "reply": false
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "UI",
+      "text": "仅成功时返回同一份报表快照",
+      "reply": true
+    },
+    {
+      "kind": "opt",
+      "text": "已有有效报表且用户选择导出"
+    },
+    {
+      "kind": "message",
+      "from": "UI",
+      "to": "S",
+      "text": "exportCsv(当前报表, 目标新路径)",
+      "reply": false
+    },
+    {
+      "kind": "note",
+      "text": "导出不重新扩大数据范围。Service 将选定字段映射为表头和数值行，GUI 后台执行。"
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "X",
+      "text": "export(target, headers, rows)",
+      "reply": false
+    },
+    {
+      "kind": "alt",
+      "text": "写入与发布成功"
+    },
+    {
+      "kind": "message",
+      "from": "X",
+      "to": "S",
+      "text": "Path（UTF-8 BOM；不请求覆盖已有目标）",
+      "reply": true
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "UI",
+      "text": "导出成功路径",
+      "reply": true
+    },
+    {
+      "kind": "else",
+      "text": "IOException 或输入格式错误"
+    },
+    {
+      "kind": "message",
+      "from": "X",
+      "to": "S",
+      "text": "尝试清理暂存文件；失败附 suppressed，保留原异常",
+      "reply": true
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "UI",
+      "text": "受控导出失败提示（业务错误码待定义）",
+      "reply": true
+    },
+    {
+      "kind": "end"
+    },
+    {
+      "kind": "end"
+    },
+    {
+      "kind": "note",
+      "text": "CsvExporter 不依赖 StatReport，尚未实测 Excel GUI。超长数字识别和二次保存行为不由 CSV 工具保证。"
+    }
+  ]
+}

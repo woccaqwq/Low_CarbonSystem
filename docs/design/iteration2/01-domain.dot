@@ -1,0 +1,28 @@
+digraph UML {
+graph [rankdir=TB, bgcolor="white", pad="0.35", nodesep="0.55", ranksep="0.8", splines=polyline, overlap=false];
+node [shape=plain, fontname="Microsoft YaHei", fontsize=11];
+edge [fontname="Microsoft YaHei", fontsize=9, color="#64748b", arrowsize=0.7];
+fontname="Microsoft YaHei"; fontsize=16;
+User [label=<<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" WIDTH="221" COLOR="#315b87"><TR><TD WIDTH="219" BGCOLOR="#dce9f8" CELLPADDING="8"><B>User</B></TD></TR><TR><TD WIDTH="219" ALIGN="LEFT" CELLPADDING="7">- userId : int<BR ALIGN="LEFT"/>- username : String<BR ALIGN="LEFT"/>- passwordHash : String<BR ALIGN="LEFT"/>- salt : String<BR ALIGN="LEFT"/>- nickname : String<BR ALIGN="LEFT"/>- role : Role<BR ALIGN="LEFT"/>- creditScore : int<BR ALIGN="LEFT"/>- status : int<BR ALIGN="LEFT"/>- createdAt : LocalDateTime<BR ALIGN="LEFT"/>- lastLoginAt : LocalDateTime<BR ALIGN="LEFT"/></TD></TR><TR><TD WIDTH="219" ALIGN="LEFT" CELLPADDING="7">+ isAdmin(...)<BR ALIGN="LEFT"/>+ isEnabled(...)<BR ALIGN="LEFT"/>+ adjustCredit(...)<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+Item [label=<<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" WIDTH="207" COLOR="#315b87"><TR><TD WIDTH="205" BGCOLOR="#dce9f8" CELLPADDING="8"><B>Item</B></TD></TR><TR><TD WIDTH="205" ALIGN="LEFT" CELLPADDING="7">- itemId : int<BR ALIGN="LEFT"/>- ownerId : int<BR ALIGN="LEFT"/>- categoryId : Integer<BR ALIGN="LEFT"/>- title : String<BR ALIGN="LEFT"/>- description : String<BR ALIGN="LEFT"/>- price : double<BR ALIGN="LEFT"/>- tradeType : TradeType<BR ALIGN="LEFT"/>- status : ItemStatus<BR ALIGN="LEFT"/>- tags : String<BR ALIGN="LEFT"/>- viewCount : long<BR ALIGN="LEFT"/>- createdAt : LocalDateTime<BR ALIGN="LEFT"/>- updatedAt : LocalDateTime<BR ALIGN="LEFT"/>- ownerNickname : String<BR ALIGN="LEFT"/>- ownerCredit : int<BR ALIGN="LEFT"/>- categoryName : String<BR ALIGN="LEFT"/></TD></TR><TR><TD WIDTH="205" ALIGN="LEFT" CELLPADDING="7">+ publish(...)<BR ALIGN="LEFT"/>+ offline(...)<BR ALIGN="LEFT"/>+ markFlowed(...)<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+Category [label=<<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" WIDTH="190" COLOR="#315b87"><TR><TD WIDTH="188" BGCOLOR="#dce9f8" CELLPADDING="8"><B>Category</B></TD></TR><TR><TD WIDTH="188" ALIGN="LEFT" CELLPADDING="7">- categoryId : int<BR ALIGN="LEFT"/>- name : String<BR ALIGN="LEFT"/>- parentId : Integer<BR ALIGN="LEFT"/>- sortNo : int<BR ALIGN="LEFT"/></TD></TR><TR><TD WIDTH="188" ALIGN="LEFT" CELLPADDING="7">+ isRoot(...)<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+Favorite [label=<<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" WIDTH="207" COLOR="#315b87"><TR><TD WIDTH="205" BGCOLOR="#dce9f8" CELLPADDING="8"><B>Favorite</B></TD></TR><TR><TD WIDTH="205" ALIGN="LEFT" CELLPADDING="7">- favoriteId : int<BR ALIGN="LEFT"/>- userId : int<BR ALIGN="LEFT"/>- itemId : int<BR ALIGN="LEFT"/>- createdAt : LocalDateTime<BR ALIGN="LEFT"/>- item : Item<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+FlowRecord [label=<<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" WIDTH="214" COLOR="#315b87"><TR><TD WIDTH="212" BGCOLOR="#dce9f8" CELLPADDING="8"><B>FlowRecord</B></TD></TR><TR><TD WIDTH="212" ALIGN="LEFT" CELLPADDING="7">- flowId : int<BR ALIGN="LEFT"/>- itemId : int<BR ALIGN="LEFT"/>- sellerId : int<BR ALIGN="LEFT"/>- buyerId : int<BR ALIGN="LEFT"/>- flowType : TradeType<BR ALIGN="LEFT"/>- status : FlowStatus<BR ALIGN="LEFT"/>- remark : String<BR ALIGN="LEFT"/>- createdAt : LocalDateTime<BR ALIGN="LEFT"/>- finishedAt : LocalDateTime<BR ALIGN="LEFT"/>- itemTitle : String<BR ALIGN="LEFT"/>- sellerNickname : String<BR ALIGN="LEFT"/>- buyerNickname : String<BR ALIGN="LEFT"/></TD></TR><TR><TD WIDTH="212" ALIGN="LEFT" CELLPADDING="7">+ confirm(...)<BR ALIGN="LEFT"/>+ cancel(...)<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+Review [label=<<TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0" WIDTH="207" COLOR="#315b87"><TR><TD WIDTH="205" BGCOLOR="#dce9f8" CELLPADDING="8"><B>Review</B></TD></TR><TR><TD WIDTH="205" ALIGN="LEFT" CELLPADDING="7">- reviewId : int<BR ALIGN="LEFT"/>- flowId : int<BR ALIGN="LEFT"/>- fromUserId : int<BR ALIGN="LEFT"/>- toUserId : int<BR ALIGN="LEFT"/>- score : int<BR ALIGN="LEFT"/>- content : String<BR ALIGN="LEFT"/>- createdAt : LocalDateTime<BR ALIGN="LEFT"/>- fromNickname : String<BR ALIGN="LEFT"/>- toNickname : String<BR ALIGN="LEFT"/>- itemTitle : String<BR ALIGN="LEFT"/></TD></TR><TR><TD WIDTH="205" ALIGN="LEFT" CELLPADDING="7">+ validateScore(...)<BR ALIGN="LEFT"/></TD></TR></TABLE>>];
+User -> Item [xlabel="owner",taillabel="1",headlabel="0..*",constraint=false,arrowhead=none];
+Category -> Item [xlabel="category",taillabel="0..1",headlabel="0..*",constraint=false,arrowhead=none];
+Category -> Category [xlabel="parent / children",taillabel="0..1",headlabel="0..*",constraint=false,arrowhead=none];
+User -> Favorite [xlabel="user",taillabel="1",headlabel="0..*",constraint=false,arrowhead=none];
+Item -> Favorite [xlabel="item",taillabel="1",headlabel="0..*",constraint=false,arrowhead=none];
+Item -> FlowRecord [xlabel="item",taillabel="1",headlabel="0..*",constraint=false,arrowhead=none];
+User -> FlowRecord [xlabel="seller / buyer",taillabel="1",headlabel="0..*",constraint=false,arrowhead=none];
+FlowRecord -> Review [xlabel="reviews",taillabel="1",headlabel="0..2",constraint=false,arrowhead=none];
+User -> Review [xlabel="from / to",taillabel="1",headlabel="0..*",constraint=false,arrowhead=none];
+{rank=same; User;Item;Category;}
+User -> Item [style=invis,weight=100];
+Item -> Category [style=invis,weight=100];
+{rank=same; Favorite;FlowRecord;Review;}
+Favorite -> FlowRecord [style=invis,weight=100];
+FlowRecord -> Review [style=invis,weight=100];
+User -> Favorite [style=invis,weight=100,minlen=2];
+}

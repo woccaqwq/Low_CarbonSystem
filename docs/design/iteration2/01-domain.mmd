@@ -1,0 +1,88 @@
+classDiagram
+  class User {
+    -int userId
+    -String username
+    -String passwordHash
+    -String salt
+    -String nickname
+    -Role role
+    -int creditScore
+    -int status
+    -LocalDateTime createdAt
+    -LocalDateTime lastLoginAt
+    +isAdmin(...)
+    +isEnabled(...)
+    +adjustCredit(...)
+  }
+  class Item {
+    -int itemId
+    -int ownerId
+    -Integer categoryId
+    -String title
+    -String description
+    -double price
+    -TradeType tradeType
+    -ItemStatus status
+    -String tags
+    -long viewCount
+    -LocalDateTime createdAt
+    -LocalDateTime updatedAt
+    -String ownerNickname
+    -int ownerCredit
+    -String categoryName
+    +publish(...)
+    +offline(...)
+    +markFlowed(...)
+  }
+  class Category {
+    -int categoryId
+    -String name
+    -Integer parentId
+    -int sortNo
+    +isRoot(...)
+  }
+  class Favorite {
+    -int favoriteId
+    -int userId
+    -int itemId
+    -LocalDateTime createdAt
+    -Item item
+  }
+  class FlowRecord {
+    -int flowId
+    -int itemId
+    -int sellerId
+    -int buyerId
+    -TradeType flowType
+    -FlowStatus status
+    -String remark
+    -LocalDateTime createdAt
+    -LocalDateTime finishedAt
+    -String itemTitle
+    -String sellerNickname
+    -String buyerNickname
+    +confirm(...)
+    +cancel(...)
+  }
+  class Review {
+    -int reviewId
+    -int flowId
+    -int fromUserId
+    -int toUserId
+    -int score
+    -String content
+    -LocalDateTime createdAt
+    -String fromNickname
+    -String toNickname
+    -String itemTitle
+    +validateScore(...)
+  }
+  User "1" -- "0..*" Item : owner
+  Category "0..1" -- "0..*" Item : category
+  Category "0..1" -- "0..*" Category : parent / children
+  User "1" -- "0..*" Favorite : user
+  Item "1" -- "0..*" Favorite : item
+  Item "1" -- "0..*" FlowRecord : item
+  User "1" -- "0..*" FlowRecord : seller / buyer
+  FlowRecord "1" -- "0..2" Review : reviews
+  User "1" -- "0..*" Review : from / to

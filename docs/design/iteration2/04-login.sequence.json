@@ -1,0 +1,191 @@
+{
+  "id": "04-login",
+  "title": "登录接入时序",
+  "subtitle": "UserService / GUI 尚未实现；图示推荐接入顺序，DAO 和工具已有实现。",
+  "participants": [
+    {
+      "id": "UI",
+      "label": "登录界面（待实现）",
+      "planned": true
+    },
+    {
+      "id": "S",
+      "label": "UserService（待实现）",
+      "planned": true
+    },
+    {
+      "id": "U",
+      "label": "UserDao",
+      "planned": false
+    },
+    {
+      "id": "P",
+      "label": "PasswordUtil",
+      "planned": false
+    },
+    {
+      "id": "D",
+      "label": "DBUtil",
+      "planned": false
+    },
+    {
+      "id": "C",
+      "label": "Connection",
+      "planned": false
+    },
+    {
+      "id": "L",
+      "label": "OperationLogDao",
+      "planned": false
+    },
+    {
+      "id": "V",
+      "label": "SessionUser",
+      "planned": false
+    }
+  ],
+  "events": [
+    {
+      "kind": "message",
+      "from": "UI",
+      "to": "S",
+      "text": "login(username, rawPassword)",
+      "reply": false
+    },
+    {
+      "kind": "note",
+      "text": "先做输入规则与失败次数/锁定检查。口令仅在认证内存流程使用，不写日志或 SessionUser。"
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "U",
+      "text": "findByUsername(username)",
+      "reply": false
+    },
+    {
+      "kind": "message",
+      "from": "U",
+      "to": "S",
+      "text": "Optional<User>",
+      "reply": true
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "P",
+      "text": "verify(rawPassword, hash, salt)",
+      "reply": false
+    },
+    {
+      "kind": "alt",
+      "text": "不存在、口令错误、禁用或锁定"
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "UI",
+      "text": "固定业务错误；不存在与口令错误使用同一提示",
+      "reply": true
+    },
+    {
+      "kind": "else",
+      "text": "认证成功且账号可用"
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "D",
+      "text": "getConnection()",
+      "reply": false
+    },
+    {
+      "kind": "message",
+      "from": "D",
+      "to": "S",
+      "text": "conn（首次空库自动初始化）",
+      "reply": true
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "C",
+      "text": "setAutoCommit(false)",
+      "reply": false
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "U",
+      "text": "findById(conn, userId)；再次确认账号可用",
+      "reply": false
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "V",
+      "text": "from(currentUser)；用事务内新读用户构造快照",
+      "reply": false
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "U",
+      "text": "updateLastLogin(conn, userId, now)；检查 1 行",
+      "reply": false
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "L",
+      "text": "insert(conn, OperationLog(userId, LOGIN, 安全摘要))",
+      "reply": false
+    },
+    {
+      "kind": "alt",
+      "text": "更新命中且所有写入成功"
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "C",
+      "text": "commit()",
+      "reply": false
+    },
+    {
+      "kind": "else",
+      "text": "RuntimeException 或 SQLException"
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "C",
+      "text": "rollback()；回滚失败加入 suppressed",
+      "reply": false
+    },
+    {
+      "kind": "end"
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "C",
+      "text": "close()（try-with-resources）",
+      "reply": false
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "UI",
+      "text": "仅成功返回安全快照；失败抛受控异常",
+      "reply": true
+    },
+    {
+      "kind": "end"
+    },
+    {
+      "kind": "note",
+      "text": "SessionManager、失败锁定、GUI 错误展示与 Service 事务编排仍待实现。快照不是实时权限来源。"
+    }
+  ]
+}

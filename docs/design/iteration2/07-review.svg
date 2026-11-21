@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="994" viewBox="0 0 1300 994">
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#294a70"/></marker></defs>
+<rect width="1300" height="994" fill="white"/>
+<style>text{font-family:"Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#18314b} .body{font-size:12px} .small{font-size:11px}</style>
+<text x="30" y="36" font-size="24" font-weight="bold">评价与信用事务接入时序</text>
+<text x="30" y="65" font-size="13">ReviewService 尚未实现；评价、唯一约束与原子信用增量已有实现。</text>
+<text x="30" y="91" class="small">蓝色：已有类型/能力　黄色虚线：待实现接入组件　alt / else：互斥路径　同一 conn：同一数据库事务</text>
+<rect x="16" y="448" width="1268" height="376" fill="none" stroke="#9aaec3" stroke-width="1.1"/>
+<line x1="125" y1="179" x2="125" y2="964" stroke="#a8b6c5" stroke-dasharray="6 5"/>
+<rect x="29" y="123" width="192" height="56" rx="4" fill="#fff3d3" stroke="#315b87" stroke-dasharray="5 3"/>
+<text x="125" y="145" text-anchor="middle" font-size="12" font-weight="bold">ReviewService（待实现）</text>
+<line x1="335" y1="179" x2="335" y2="964" stroke="#a8b6c5" stroke-dasharray="6 5"/>
+<rect x="239" y="123" width="192" height="56" rx="4" fill="#e5effb" stroke="#315b87" />
+<text x="335" y="145" text-anchor="middle" font-size="12" font-weight="bold">DBUtil / Connection</text>
+<line x1="545" y1="179" x2="545" y2="964" stroke="#a8b6c5" stroke-dasharray="6 5"/>
+<rect x="449" y="123" width="192" height="56" rx="4" fill="#e5effb" stroke="#315b87" />
+<text x="545" y="145" text-anchor="middle" font-size="12" font-weight="bold">FlowRecordDao</text>
+<line x1="755" y1="179" x2="755" y2="964" stroke="#a8b6c5" stroke-dasharray="6 5"/>
+<rect x="659" y="123" width="192" height="56" rx="4" fill="#e5effb" stroke="#315b87" />
+<text x="755" y="145" text-anchor="middle" font-size="12" font-weight="bold">UserDao</text>
+<line x1="965" y1="179" x2="965" y2="964" stroke="#a8b6c5" stroke-dasharray="6 5"/>
+<rect x="869" y="123" width="192" height="56" rx="4" fill="#e5effb" stroke="#315b87" />
+<text x="965" y="145" text-anchor="middle" font-size="12" font-weight="bold">ReviewDao</text>
+<line x1="1175" y1="179" x2="1175" y2="964" stroke="#a8b6c5" stroke-dasharray="6 5"/>
+<rect x="1079" y="123" width="192" height="56" rx="4" fill="#e5effb" stroke="#315b87" />
+<text x="1175" y="145" text-anchor="middle" font-size="12" font-weight="bold">OperationLogDao</text>
+<text class="body" x="134" y="225">1. getConnection(); setAutoC</text>
+<text class="body" x="134" y="243">ommit(false)</text>
+<line x1="125" y1="253" x2="335" y2="253" stroke="#294a70"  marker-end="url(#arrow)"/>
+<text class="body" x="134" y="289">2. findById(conn, flowId)</text>
+<line x1="125" y1="299" x2="545" y2="299" stroke="#294a70"  marker-end="url(#arrow)"/>
+<text class="body" x="134" y="335">3. findById(conn, currentUserId)</text>
+<line x1="125" y1="345" x2="755" y2="345" stroke="#294a70"  marker-end="url(#arrow)"/>
+<text class="body" x="134" y="381">4. existsByFlowAndFrom(conn, flowId, fromId)</text>
+<line x1="125" y1="391" x2="965" y2="391" stroke="#294a70"  marker-end="url(#arrow)"/>
+<rect x="27" y="414" width="1246" height="31" fill="#fff8df" stroke="#d7b85f"/>
+<text class="body" x="38" y="431">校验 DEAL、当前操作者为交易双方之一、7 天窗口、评分 1–5、内容最多 200 码点；toId 由交易记录推导。</text>
+<rect x="17" y="450" width="1266" height="31" fill="#eef3f8" stroke="#c5d0dc"/>
+<text class="body" x="38" y="467">alt  校验与写入成功</text>
+<text class="body" x="134" y="499">5. insert(conn, Review(flowId, fromId, toId, score, content))</text>
+<line x1="125" y1="509" x2="965" y2="509" stroke="#294a70"  marker-end="url(#arrow)"/>
+<text class="body" x="134" y="545">6. updateCreditScore(conn, toId, delta)；检查 1 行</text>
+<line x1="125" y1="555" x2="755" y2="555" stroke="#294a70"  marker-end="url(#arrow)"/>
+<rect x="27" y="578" width="1246" height="31" fill="#fff8df" stroke="#d7b85f"/>
+<text class="body" x="38" y="595">只调整本条评价的接收人：4–5 星 +2，1–2 星 -3，3 星不变。成交双方各 +1 在成交事务中完成。</text>
+<text class="body" x="134" y="627">7. insert(conn, REVIEW_SUBMIT 安全日志)</text>
+<line x1="125" y1="637" x2="1175" y2="637" stroke="#294a70"  marker-end="url(#arrow)"/>
+<text class="body" x="134" y="673">8. commit()</text>
+<line x1="125" y1="683" x2="335" y2="683" stroke="#294a70"  marker-end="url(#arrow)"/>
+<rect x="17" y="706" width="1266" height="31" fill="#eef3f8" stroke="#c5d0dc"/>
+<text class="body" x="38" y="723">else  资格失败、重复约束或 RuntimeException / SQLException</text>
+<text class="body" x="134" y="755">9. rollback()；回滚失败附 sup</text>
+<text class="body" x="134" y="773">pressed</text>
+<line x1="125" y1="783" x2="335" y2="783" stroke="#294a70"  marker-end="url(#arrow)"/>
+<text class="body" x="134" y="839">10. close()（try-with-resourc</text>
+<text class="body" x="134" y="857">es）</text>
+<line x1="125" y1="867" x2="335" y2="867" stroke="#294a70"  marker-end="url(#arrow)"/>
+<rect x="27" y="890" width="1246" height="31" fill="#fff8df" stroke="#d7b85f"/>
+<text class="body" x="38" y="907">exists 是业务提示辅助，数据库 UNIQUE(flow_id, from_user_id) 才是重复写入最终约束。DAO 不自动更新信用。</text>
+</svg>

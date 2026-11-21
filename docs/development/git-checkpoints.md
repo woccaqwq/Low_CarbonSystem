@@ -6,7 +6,10 @@
 | 检查点 | 范围 | 验证门槛 | 提交标识 |
 | --- | --- | --- | --- |
 | 首次 | 模块一至十二及其文档 | 253 项测试、package、独立审查及重要问题修复、暂存范围检查 | 在本地历史中查找主题 `feat: complete iteration-two data layer and shared utilities` |
-| 下次 | 模块十三、十四 | 两个模块完成及验证后提交 | 尚未开发 |
+| 第二次 | 模块十三、十四 | 十张图及源清单检查、Word 17 页逐页检查、独立内容审查、暂存范围检查 | 在本地历史中查找主题 `docs: synchronize iteration-two design diagrams and specification` |
+| 下次 | 后续模块十五、十六（实际启动后） | 两个模块完成及相应验证后提交 | 尚未启动 |
 
 首次暂存范围为 `.gitignore`、`README.md`、`pom.xml`、`src/`、`docs/`；原迭代一 SQL、Word 和设计图保持原样。
 `target/`、`.mvn-cache/`、`data/`、`logs/` 及数据库文件不进入提交。提交后从 Git 历史查询实际哈希；本记录不包含自身提交的哈希，避免为回填哈希反复修改提交。
+
+第二次范围为 README、设计与开发说明、生成/检查工具及新增迭代二 Word；不含生产 Java、原迭代一文档和渲染中间文件。253 项 Maven 测试属于首次检查点的代码验证，第二次为文档变更，没有重跑 Maven。

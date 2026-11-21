@@ -1,0 +1,26 @@
+sequenceDiagram
+  autonumber
+  participant UI as 列表界面（待实现）
+  participant S as ItemService（待实现）
+  participant Q as ItemQuery / SortStrategy
+  participant D as ItemDao
+  participant B as DBUtil / Connection
+  participant SQL as SQLite
+  UI->>S: search(筛选条件)
+  S->>Q: builder().keyword(...).sort(...).build()
+  Note over UI,SQL: 默认 status=ON_SALE；status(null) 才不限状态。分页 1 起、每页 10–100。排序白名单验证后冻结。
+  alt 非法范围、分页或排序
+  Q-->>S: IllegalArgumentException
+  S-->>UI: 映射字段校验错误
+  else 有效查询
+  S->>D: search(query)
+  D->>B: getConnection()
+  D->>SQL: PreparedStatement：COUNT + 组合筛选
+  SQL-->>D: total
+  D->>SQL: PreparedStatement：JOIN + 安全排序 + LIMIT/OFFSET
+  SQL-->>D: 当前昵称、信用、分类投影
+  D->>B: close()（普通方法持有的独立连接）
+  D-->>S: PageResult<Item>
+  S-->>UI: 获准范围内的列表与分页元数据
+  end
+  Note over UI,SQL: 计数与列表是两次查询。需要严格一致快照时，Service 开启读事务并调用 search(conn, query)。

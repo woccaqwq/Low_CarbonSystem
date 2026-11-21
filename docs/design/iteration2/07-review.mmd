@@ -1,0 +1,24 @@
+sequenceDiagram
+  autonumber
+  participant S as ReviewService（待实现）
+  participant D as DBUtil / Connection
+  participant F as FlowRecordDao
+  participant U as UserDao
+  participant R as ReviewDao
+  participant L as OperationLogDao
+  S->>D: getConnection(); setAutoCommit(false)
+  S->>F: findById(conn, flowId)
+  S->>U: findById(conn, currentUserId)
+  S->>R: existsByFlowAndFrom(conn, flowId, fromId)
+  Note over S,L: 校验 DEAL、当前操作者为交易双方之一、7 天窗口、评分 1–5、内容最多 200 码点；toId 由交易记录推导。
+  alt 校验与写入成功
+  S->>R: insert(conn, Review(flowId, fromId, toId, score, content))
+  S->>U: updateCreditScore(conn, toId, delta)；检查 1 行
+  Note over S,L: 只调整本条评价的接收人：4–5 星 +2，1–2 星 -3，3 星不变。成交双方各 +1 在成交事务中完成。
+  S->>L: insert(conn, REVIEW_SUBMIT 安全日志)
+  S->>D: commit()
+  else 资格失败、重复约束或 RuntimeException / SQLException
+  S->>D: rollback()；回滚失败附 suppressed
+  end
+  S->>D: close()（try-with-resources）
+  Note over S,L: exists 是业务提示辅助，数据库 UNIQUE(flow_id, from_user_id) 才是重复写入最终约束。DAO 不自动更新信用。

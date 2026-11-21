@@ -1,0 +1,38 @@
+sequenceDiagram
+  autonumber
+  participant UI as 统计界面（待实现）
+  participant S as StatService（待实现）
+  participant D as DBUtil / Connection
+  participant T as StatDao
+  participant C as SysConfigDao
+  participant X as CsvExporter
+  UI->>S: buildReport(from, to)
+  Note over UI,X: 从受信任当前身份决定个人/平台范围。日期与用户形成不可变 StatQuery。
+  S->>D: getConnection(); setAutoCommit(false)
+  S->>T: getOverview(conn, query)
+  S->>T: countByCategory(conn, query)
+  loop 需要展示的每个年份；跨年范围逐年读取
+  S->>T: countByMonth(conn, year, query)；单次返回 12 个月
+  end
+  S->>C: findByKey(conn, stat.co2.per_item_kg)
+  alt 配置和所有读取有效
+  Note over UI,X: Service 校验系数格式、非负及有限值；若启用减碳估算，按明确已流转/成交口径计算，不乘全部意向数。
+  S->>D: commit()
+  else 配置缺失/损坏或 RuntimeException / SQLException
+  S->>D: rollback()；保留原异常
+  end
+  S->>D: close()
+  S-->>UI: 仅成功时返回同一份报表快照
+  opt 已有有效报表且用户选择导出
+  UI->>S: exportCsv(当前报表, 目标新路径)
+  Note over UI,X: 导出不重新扩大数据范围。Service 将选定字段映射为表头和数值行，GUI 后台执行。
+  S->>X: export(target, headers, rows)
+  alt 写入与发布成功
+  X-->>S: Path（UTF-8 BOM；不请求覆盖已有目标）
+  S-->>UI: 导出成功路径
+  else IOException 或输入格式错误
+  X-->>S: 尝试清理暂存文件；失败附 suppressed，保留原异常
+  S-->>UI: 受控导出失败提示（业务错误码待定义）
+  end
+  end
+  Note over UI,X: CsvExporter 不依赖 StatReport，尚未实测 Excel GUI。超长数字识别和二次保存行为不由 CSV 工具保证。

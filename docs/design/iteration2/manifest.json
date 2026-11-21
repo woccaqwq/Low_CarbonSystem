@@ -1,0 +1,88 @@
+{
+  "sourceCommit": "1b3ae6f",
+  "sourceHash": "89c64d2b646a6232bae2370475065effac0ff6c1ef31222fcfddee4d5fc06f0a",
+  "daoCount": 9,
+  "daoMethodCount": 112,
+  "diagrams": [
+    {
+      "id": "01-domain",
+      "type": "class",
+      "title": "迭代二领域类图"
+    },
+    {
+      "id": "02-data-access",
+      "type": "class",
+      "title": "迭代二数据访问与查询类图"
+    },
+    {
+      "id": "03-shared",
+      "type": "class",
+      "title": "迭代二会话配置统计与异常类图"
+    },
+    {
+      "id": "04-login",
+      "type": "sequence",
+      "title": "登录接入时序"
+    },
+    {
+      "id": "05-search",
+      "type": "sequence",
+      "title": "物品检索接入时序"
+    },
+    {
+      "id": "06-deal",
+      "type": "sequence",
+      "title": "确认成交事务接入时序"
+    },
+    {
+      "id": "07-review",
+      "type": "sequence",
+      "title": "评价与信用事务接入时序"
+    },
+    {
+      "id": "08-stat-export",
+      "type": "sequence",
+      "title": "统计与 CSV 导出接入时序"
+    },
+    {
+      "id": "09-admin-offline",
+      "type": "sequence",
+      "title": "违规下架事务接入时序"
+    },
+    {
+      "id": "10-state",
+      "type": "state",
+      "title": "物品与流转状态图"
+    }
+  ],
+  "generatedTextHashes": {
+    "dao-api.md": "1dc00ef26dbd4ad92b78dece9b38bae7ca09f50a60cd665d666be311ab24dbbe",
+    "entity-fields.md": "b07b2812ac5793768b84299b09fbba578f24cbf5f48455924cb234602b2055e1",
+    "01-domain.dot": "e24457b71ead16885ace44109e21baabc314b716890bb89108a1a99136a6e943",
+    "01-domain.mmd": "d6d6b3866cb500c6663e5d47e040d13b9e9e955b8fc5c5c5377cbb254e6c082c",
+    "02-data-access.dot": "8e92a7576e32da9e481148fa6575c326ebfd66f42a5b7b5037199d23fab6faa1",
+    "02-data-access.mmd": "0ddca2db5ff409397916e26fbffe68746753eb81672b21d3febbfa93adf16fb5",
+    "03-shared.dot": "ade3c9970c265c69067c30c9968ce9247ba26181b3dca80dd23495234d9dbd1b",
+    "03-shared.mmd": "13a29d8527a85d00b2605402f3cacde9c8076855a23642d7d9eba34307e9149f",
+    "04-login.sequence.json": "2af6d0558de1b9dfc6d428233e8fcfa362e475e5e473228aeea1f817ae1d041d",
+    "04-login.mmd": "f31e884ebe7fa6d1b7d771b186083cf49fe4e1fb08ab96a3971e6f04eecb5e50",
+    "04-login.svg": "ebd1cb765ca0dcceb8526e598e319b7c268daf1d6f9e143d02b2734312fcd39f",
+    "05-search.sequence.json": "c988303832884050249317add615d44ab0e10f8a72f2919032cfec98f2310409",
+    "05-search.mmd": "bd3b5901b752f046d4cadcac75ebfd030094dc2cea83c717852680aa60dff463",
+    "05-search.svg": "65789b7d25878b026eb0715bfa05b2f52c7b4370b37b295bab3d147e7921fb7f",
+    "06-deal.sequence.json": "7cd4dac80332b24d0fc6aa6fe6b423f4d6961d5c65265b0b958549f1c4f553f6",
+    "06-deal.mmd": "86b768bbd24fa7817e222b04893bff746a529a5413599272a201e53a9cfb384b",
+    "06-deal.svg": "4285fcf3a6dea6d20b2583e8f0567bf122f71379a8df73ff391f13c72aa6ead6",
+    "07-review.sequence.json": "00ecc4bb07bf7c165cd39938cb27caeafe1fe982c16c5bd1d91d87a90093ef7c",
+    "07-review.mmd": "51256d078d2c0c10abb1f05cfb360e575b4f1140e550e86d091b43d300e7917a",
+    "07-review.svg": "f96e0da579d1e69233bc354608f460ac848a90b35553e056b5d0e8eefbc5dc25",
+    "08-stat-export.sequence.json": "df878c4873792abf11c4abdb2e4f7dc609864fc66d9faed2ef7f68294dad02ce",
+    "08-stat-export.mmd": "1edff284cd948f971323c031e6a9c1f7f381ba310aec4b475df5e5ef4bbb4ad5",
+    "08-stat-export.svg": "31fd9db6b024c191384e6b00a0fd202e02b555783897db7a55419ac8de4ee48b",
+    "09-admin-offline.sequence.json": "6f1e9efa218de95071d3877cb3bf33c5e19a689cef7e369b6100724a0600ebea",
+    "09-admin-offline.mmd": "13075583cd29b271abf4533e2dbd701e6d48557c694ab900c1ecb1fa1cadb488",
+    "09-admin-offline.svg": "5425e99bf073ce47509c20e303722e6633cd37ae04b7b92174fe25063d1bf8f9",
+    "10-state.mmd": "90303478ffbdb0d1aa06bc5a21e078c692b506791b8d2b726366a9b8e4d9a68d",
+    "10-state.dot": "a4fa5ea5ea93baa54ba15afe0641fccb7e83f13ad5bf9004762c52fa3cf9c669"
+  }
+}

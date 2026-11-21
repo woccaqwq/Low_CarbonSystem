@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1720" height="1362" viewBox="0 0 1720 1362">
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#294a70"/></marker></defs>
+<rect width="1720" height="1362" fill="white"/>
+<style>text{font-family:"Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#18314b} .body{font-size:12px} .small{font-size:11px}</style>
+<text x="30" y="36" font-size="24" font-weight="bold">登录接入时序</text>
+<text x="30" y="65" font-size="13">UserService / GUI 尚未实现；图示推荐接入顺序，DAO 和工具已有实现。</text>
+<text x="30" y="91" class="small">蓝色：已有类型/能力　黄色虚线：待实现接入组件　alt / else：互斥路径　同一 conn：同一数据库事务</text>
+<rect x="16" y="942" width="1688" height="184" fill="none" stroke="#9aaec3" stroke-width="1.1"/>
+<rect x="16" y="448" width="1688" height="808" fill="none" stroke="#9aaec3" stroke-width="1.1"/>
+<line x1="125" y1="179" x2="125" y2="1332" stroke="#a8b6c5" stroke-dasharray="6 5"/>
+<rect x="29" y="123" width="192" height="56" rx="4" fill="#fff3d3" stroke="#315b87" stroke-dasharray="5 3"/>
+<text x="125" y="145" text-anchor="middle" font-size="12" font-weight="bold">登录界面（待实现）</text>
+<line x1="335" y1="179" x2="335" y2="1332" stroke="#a8b6c5" stroke-dasharray="6 5"/>
+<rect x="239" y="123" width="192" height="56" rx="4" fill="#fff3d3" stroke="#315b87" stroke-dasharray="5 3"/>
+<text x="335" y="145" text-anchor="middle" font-size="12" font-weight="bold">UserService（待实现）</text>
+<line x1="545" y1="179" x2="545" y2="1332" stroke="#a8b6c5" stroke-dasharray="6 5"/>
+<rect x="449" y="123" width="192" height="56" rx="4" fill="#e5effb" stroke="#315b87" />
+<text x="545" y="145" text-anchor="middle" font-size="12" font-weight="bold">UserDao</text>
+<line x1="755" y1="179" x2="755" y2="1332" stroke="#a8b6c5" stroke-dasharray="6 5"/>
+<rect x="659" y="123" width="192" height="56" rx="4" fill="#e5effb" stroke="#315b87" />
+<text x="755" y="145" text-anchor="middle" font-size="12" font-weight="bold">PasswordUtil</text>
+<line x1="965" y1="179" x2="965" y2="1332" stroke="#a8b6c5" stroke-dasharray="6 5"/>
+<rect x="869" y="123" width="192" height="56" rx="4" fill="#e5effb" stroke="#315b87" />
+<text x="965" y="145" text-anchor="middle" font-size="12" font-weight="bold">DBUtil</text>
+<line x1="1175" y1="179" x2="1175" y2="1332" stroke="#a8b6c5" stroke-dasharray="6 5"/>
+<rect x="1079" y="123" width="192" height="56" rx="4" fill="#e5effb" stroke="#315b87" />
+<text x="1175" y="145" text-anchor="middle" font-size="12" font-weight="bold">Connection</text>
+<line x1="1385" y1="179" x2="1385" y2="1332" stroke="#a8b6c5" stroke-dasharray="6 5"/>
+<rect x="1289" y="123" width="192" height="56" rx="4" fill="#e5effb" stroke="#315b87" />
+<text x="1385" y="145" text-anchor="middle" font-size="12" font-weight="bold">OperationLogDao</text>
+<line x1="1595" y1="179" x2="1595" y2="1332" stroke="#a8b6c5" stroke-dasharray="6 5"/>
+<rect x="1499" y="123" width="192" height="56" rx="4" fill="#e5effb" stroke="#315b87" />
+<text x="1595" y="145" text-anchor="middle" font-size="12" font-weight="bold">SessionUser</text>
+<text class="body" x="134" y="225">1. login(username, rawPasswo</text>
+<text class="body" x="134" y="243">rd)</text>
+<line x1="125" y1="253" x2="335" y2="253" stroke="#294a70"  marker-end="url(#arrow)"/>
+<rect x="27" y="276" width="1666" height="31" fill="#fff8df" stroke="#d7b85f"/>
+<text class="body" x="38" y="293">先做输入规则与失败次数/锁定检查。口令仅在认证内存流程使用，不写日志或 SessionUser。</text>
+<text class="body" x="344" y="325">2. findByUsername(username)</text>
+<line x1="335" y1="335" x2="545" y2="335" stroke="#294a70"  marker-end="url(#arrow)"/>
+<text class="body" x="344" y="371">3. Optional&lt;User&gt;</text>
+<line x1="545" y1="381" x2="335" y2="381" stroke="#294a70" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+<text class="body" x="344" y="417">4. verify(rawPassword, hash, salt)</text>
+<line x1="335" y1="427" x2="755" y2="427" stroke="#294a70"  marker-end="url(#arrow)"/>
+<rect x="17" y="450" width="1686" height="31" fill="#eef3f8" stroke="#c5d0dc"/>
+<text class="body" x="38" y="467">alt  不存在、口令错误、禁用或锁定</text>
+<text class="body" x="134" y="499">5. 固定业务错误；不存在与口令</text>
+<text class="body" x="134" y="517">错误使用同一提示</text>
+<line x1="335" y1="527" x2="125" y2="527" stroke="#294a70" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+<rect x="17" y="550" width="1686" height="31" fill="#eef3f8" stroke="#c5d0dc"/>
+<text class="body" x="38" y="567">else  认证成功且账号可用</text>
+<text class="body" x="344" y="599">6. getConnection()</text>
+<line x1="335" y1="609" x2="965" y2="609" stroke="#294a70"  marker-end="url(#arrow)"/>
+<text class="body" x="344" y="645">7. conn（首次空库自动初始化）</text>
+<line x1="965" y1="655" x2="335" y2="655" stroke="#294a70" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+<text class="body" x="344" y="691">8. setAutoCommit(false)</text>
+<line x1="335" y1="701" x2="1175" y2="701" stroke="#294a70"  marker-end="url(#arrow)"/>
+<text class="body" x="344" y="737">9. findById(conn, userId)；</text>
+<text class="body" x="344" y="755">再次确认账号可用</text>
+<line x1="335" y1="765" x2="545" y2="765" stroke="#294a70"  marker-end="url(#arrow)"/>
+<text class="body" x="344" y="801">10. from(currentUser)；用事务内新读用户构造快照</text>
+<line x1="335" y1="811" x2="1595" y2="811" stroke="#294a70"  marker-end="url(#arrow)"/>
+<text class="body" x="344" y="847">11. updateLastLogin(conn, use</text>
+<text class="body" x="344" y="865">rId, now)；检查 1 行</text>
+<line x1="335" y1="875" x2="545" y2="875" stroke="#294a70"  marker-end="url(#arrow)"/>
+<text class="body" x="344" y="911">12. insert(conn, OperationLog(userId, LOGIN, 安全摘要))</text>
+<line x1="335" y1="921" x2="1385" y2="921" stroke="#294a70"  marker-end="url(#arrow)"/>
+<rect x="17" y="944" width="1686" height="31" fill="#eef3f8" stroke="#c5d0dc"/>
+<text class="body" x="38" y="961">alt  更新命中且所有写入成功</text>
+<text class="body" x="344" y="993">13. commit()</text>
+<line x1="335" y1="1003" x2="1175" y2="1003" stroke="#294a70"  marker-end="url(#arrow)"/>
+<rect x="17" y="1026" width="1686" height="31" fill="#eef3f8" stroke="#c5d0dc"/>
+<text class="body" x="38" y="1043">else  RuntimeException 或 SQLException</text>
+<text class="body" x="344" y="1075">14. rollback()；回滚失败加入 suppressed</text>
+<line x1="335" y1="1085" x2="1175" y2="1085" stroke="#294a70"  marker-end="url(#arrow)"/>
+<text class="body" x="344" y="1141">15. close()（try-with-resources）</text>
+<line x1="335" y1="1151" x2="1175" y2="1151" stroke="#294a70"  marker-end="url(#arrow)"/>
+<text class="body" x="134" y="1187">16. 仅成功返回安全快照；失败抛</text>
+<text class="body" x="134" y="1205">受控异常</text>
+<line x1="335" y1="1215" x2="125" y2="1215" stroke="#294a70" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+<rect x="27" y="1258" width="1666" height="31" fill="#fff8df" stroke="#d7b85f"/>
+<text class="body" x="38" y="1275">SessionManager、失败锁定、GUI 错误展示与 Service 事务编排仍待实现。快照不是实时权限来源。</text>
+</svg>

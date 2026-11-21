@@ -1,0 +1,23 @@
+sequenceDiagram
+  autonumber
+  participant S as AdminService（待实现）
+  participant D as DBUtil / Connection
+  participant U as UserDao
+  participant I as ItemDao
+  participant L as OperationLogDao
+  participant A as AppLogger
+  S->>D: getConnection(); setAutoCommit(false)
+  S->>U: findById(conn, operatorId)
+  S->>I: findById(conn, itemId)
+  Note over S,A: 重新校验账号可用/管理员角色、物品状态与下架原因；理由先做必要内容处理，不记录凭据或完整表单。
+  alt 校验和所有写入成功
+  S->>I: updateStatus(conn, itemId, OFF_SHELF)；检查 1 行
+  S->>L: insert(conn, 管理员动作、物品编号及安全原因摘要)
+  S->>D: commit()
+  else 权限/状态拒绝、0 行或 RuntimeException / SQLException
+  S->>D: rollback()；保留回滚失败为 suppressed
+  end
+  S->>D: close()
+  S->>A: 按已确定结果记录运行日志（可选接入）
+  Note over S,A: 运行日志 IOException 独立处理，不将已提交业务误报成回滚；已有业务异常不能被日志错误覆盖。
+  Note over S,A: FR-19 所有者查看下架原因仍缺少专门授权查询/对象关联设计，不能以管理员能看 operation_log 替代。

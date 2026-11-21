@@ -1,0 +1,170 @@
+{
+  "id": "06-deal",
+  "title": "确认成交事务接入时序",
+  "subtitle": "FlowService 尚未实现；同连接原子能力已通过数据层集成测试。",
+  "participants": [
+    {
+      "id": "S",
+      "label": "FlowService（待实现）",
+      "planned": true
+    },
+    {
+      "id": "D",
+      "label": "DBUtil / Connection",
+      "planned": false
+    },
+    {
+      "id": "F",
+      "label": "FlowRecordDao",
+      "planned": false
+    },
+    {
+      "id": "I",
+      "label": "ItemDao",
+      "planned": false
+    },
+    {
+      "id": "U",
+      "label": "UserDao",
+      "planned": false
+    },
+    {
+      "id": "L",
+      "label": "OperationLogDao",
+      "planned": false
+    }
+  ],
+  "events": [
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "D",
+      "text": "getConnection(); setAutoCommit(false)",
+      "reply": false
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "F",
+      "text": "findById(conn, flowId)",
+      "reply": false
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "I",
+      "text": "findById(conn, itemId)",
+      "reply": false
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "U",
+      "text": "findById(conn, operatorId)",
+      "reply": false
+    },
+    {
+      "kind": "note",
+      "text": "事务内校验当前身份/账号、持有人、物品在架及流转 PENDING。不能只信任 GUI 或旧 SessionUser。"
+    },
+    {
+      "kind": "alt",
+      "text": "校验和每一步写入成功"
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "F",
+      "text": "updateStatus(conn, flowId, DEAL)",
+      "reply": false
+    },
+    {
+      "kind": "message",
+      "from": "F",
+      "to": "S",
+      "text": "必须命中 1 行；0 为终态或成交冲突",
+      "reply": true
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "I",
+      "text": "updateStatus(conn, itemId, FLOWED)；检查 1 行",
+      "reply": false
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "F",
+      "text": "cancelOtherPending(conn, itemId, flowId)",
+      "reply": false
+    },
+    {
+      "kind": "message",
+      "from": "F",
+      "to": "S",
+      "text": "取消数量允许为 0（没有其他待确认意向）",
+      "reply": true
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "U",
+      "text": "updateCreditScore(conn, sellerId, +1)；检查 1 行",
+      "reply": false
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "U",
+      "text": "updateCreditScore(conn, buyerId, +1)；检查 1 行",
+      "reply": false
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "L",
+      "text": "insert(conn, 卖家 FLOW_CONFIRM 日志)",
+      "reply": false
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "L",
+      "text": "insert(conn, 买家 FLOW_CONFIRM 日志)",
+      "reply": false
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "D",
+      "text": "commit()",
+      "reply": false
+    },
+    {
+      "kind": "else",
+      "text": "业务拒绝、必需单行更新未命中，或 RuntimeException / SQLException"
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "D",
+      "text": "rollback()；回滚失败附 suppressed",
+      "reply": false
+    },
+    {
+      "kind": "end"
+    },
+    {
+      "kind": "message",
+      "from": "S",
+      "to": "D",
+      "text": "close()（try-with-resources）",
+      "reply": false
+    },
+    {
+      "kind": "note",
+      "text": "JDBC 错误由 DAO 包装为 DataAccessException，属于 RuntimeException。只有提交成功才返回成功。文件日志不加入此数据库事务。"
+    }
+  ]
+}

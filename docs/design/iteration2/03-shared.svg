@@ -1,0 +1,298 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="1286" viewBox="0 0 1300 1286"><rect width="1300" height="1286" fill="white"/><style>text{font-family:"Microsoft YaHei","Noto Sans CJK SC",sans-serif}</style><text x="25" y="34" font-size="23" font-weight="bold">迭代二会话配置统计与异常类图</text><text x="25" y="63" font-size="12">实线为类型关系，虚线为使用或复制关系；下列类型均已有代码。</text><g transform="translate(20 90)">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(25.2 1041.8)">
+<title>UML</title>
+<polygon fill="white" stroke="none" points="-25.2,25.2 -25.2,-1041.8 1235.2,-1041.8 1235.2,25.2 -25.2,25.2"/>
+<!-- SessionUser -->
+<g id="node1" class="node">
+<title>SessionUser</title>
+<polygon fill="#dce9f8" stroke="none" points="14.5,-975.6 14.5,-1015.6 219.5,-1015.6 219.5,-975.6 14.5,-975.6"/>
+<polygon fill="none" stroke="#315b87" points="14.5,-975.6 14.5,-1015.6 219.5,-1015.6 219.5,-975.6 14.5,-975.6"/>
+<text xml:space="preserve" text-anchor="start" x="60.45" y="-997.7" font-family="Microsoft YaHei" font-size="11.00">&lt;&lt;immutable snapshot&gt;&gt;</text>
+<text xml:space="preserve" text-anchor="start" x="88.89" y="-986.7" font-family="Microsoft YaHei" font-weight="bold" font-size="11.00">SessionUser</text>
+<polygon fill="none" stroke="#315b87" points="14.5,-893.6 14.5,-975.6 219.5,-975.6 219.5,-893.6 14.5,-893.6"/>
+<text xml:space="preserve" text-anchor="start" x="22.5" y="-956.6" font-family="Microsoft YaHei" font-size="11.00">&#45; userId : int {final}</text>
+<text xml:space="preserve" text-anchor="start" x="22.5" y="-943.4" font-family="Microsoft YaHei" font-size="11.00">&#45; username : String {final}</text>
+<text xml:space="preserve" text-anchor="start" x="22.5" y="-930.2" font-family="Microsoft YaHei" font-size="11.00">&#45; nickname : String {final}</text>
+<text xml:space="preserve" text-anchor="start" x="22.5" y="-917" font-family="Microsoft YaHei" font-size="11.00">&#45; role : Role {final}</text>
+<text xml:space="preserve" text-anchor="start" x="22.5" y="-903.8" font-family="Microsoft YaHei" font-size="11.00">&#45; creditScore : int {final}</text>
+<polygon fill="none" stroke="#315b87" points="14.5,-851.2 14.5,-893.6 219.5,-893.6 219.5,-851.2 14.5,-851.2"/>
+<text xml:space="preserve" text-anchor="start" x="22.5" y="-874.6" font-family="Microsoft YaHei" font-size="11.00">+ from(...)</text>
+<text xml:space="preserve" text-anchor="start" x="22.5" y="-861.4" font-family="Microsoft YaHei" font-size="11.00">+ isAdmin(...)</text>
+<polygon fill="none" stroke="#315b87" points="13.5,-850.2 13.5,-1016.6 220.5,-1016.6 220.5,-850.2 13.5,-850.2"/>
+</g>
+<!-- OperationLog -->
+<g id="node2" class="node">
+<title>OperationLog</title>
+<polygon fill="#dce9f8" stroke="none" points="261.5,-972 261.5,-1003.2 466.5,-1003.2 466.5,-972 261.5,-972"/>
+<polygon fill="none" stroke="#315b87" points="261.5,-972 261.5,-1003.2 466.5,-1003.2 466.5,-972 261.5,-972"/>
+<text xml:space="preserve" text-anchor="start" x="330.69" y="-985.3" font-family="Microsoft YaHei" font-weight="bold" font-size="11.00">OperationLog</text>
+<polygon fill="none" stroke="#315b87" points="261.5,-863.6 261.5,-972 466.5,-972 466.5,-863.6 261.5,-863.6"/>
+<text xml:space="preserve" text-anchor="start" x="269.5" y="-953" font-family="Microsoft YaHei" font-size="11.00">&#45; logId : int</text>
+<text xml:space="preserve" text-anchor="start" x="269.5" y="-939.8" font-family="Microsoft YaHei" font-size="11.00">&#45; userId : Integer</text>
+<text xml:space="preserve" text-anchor="start" x="269.5" y="-926.6" font-family="Microsoft YaHei" font-size="11.00">&#45; action : String</text>
+<text xml:space="preserve" text-anchor="start" x="269.5" y="-913.4" font-family="Microsoft YaHei" font-size="11.00">&#45; detail : String</text>
+<text xml:space="preserve" text-anchor="start" x="269.5" y="-900.2" font-family="Microsoft YaHei" font-size="11.00">&#45; createdAt : LocalDateTime</text>
+<text xml:space="preserve" text-anchor="start" x="269.5" y="-887" font-family="Microsoft YaHei" font-size="11.00">&#45; username : String</text>
+<text xml:space="preserve" text-anchor="start" x="269.5" y="-873.8" font-family="Microsoft YaHei" font-size="11.00">&#45; nickname : String</text>
+<polygon fill="none" stroke="#315b87" points="260.5,-862.6 260.5,-1004.2 467.5,-1004.2 467.5,-862.6 260.5,-862.6"/>
+</g>
+<!-- SessionUser&#45;&gt;OperationLog -->
+<!-- CategoryStat -->
+<g id="node6" class="node">
+<title>CategoryStat</title>
+<polygon fill="#dce9f8" stroke="none" points="1,-638 1,-678 233,-678 233,-638 1,-638"/>
+<polygon fill="none" stroke="#315b87" points="1,-638 1,-678 233,-678 233,-638 1,-638"/>
+<text xml:space="preserve" text-anchor="start" x="81.07" y="-660.1" font-family="Microsoft YaHei" font-size="11.00">&lt;&lt;immutable&gt;&gt;</text>
+<text xml:space="preserve" text-anchor="start" x="85.84" y="-649.1" font-family="Microsoft YaHei" font-weight="bold" font-size="11.00">CategoryStat</text>
+<polygon fill="none" stroke="#315b87" points="1,-582.4 1,-638 233,-638 233,-582.4 1,-582.4"/>
+<text xml:space="preserve" text-anchor="start" x="9" y="-619" font-family="Microsoft YaHei" font-size="11.00">&#45; categoryId : Integer {final}</text>
+<text xml:space="preserve" text-anchor="start" x="9" y="-605.8" font-family="Microsoft YaHei" font-size="11.00">&#45; categoryName : String {final}</text>
+<text xml:space="preserve" text-anchor="start" x="9" y="-592.6" font-family="Microsoft YaHei" font-size="11.00">&#45; counts : StatCounts {final}</text>
+<polygon fill="none" stroke="#315b87" points="0,-581.4 0,-679 234,-679 234,-581.4 0,-581.4"/>
+</g>
+<!-- SessionUser&#45;&gt;CategoryStat -->
+<!-- SysConfig -->
+<g id="node3" class="node">
+<title>SysConfig</title>
+<polygon fill="#dce9f8" stroke="none" points="508.5,-941.2 508.5,-981.2 767.5,-981.2 767.5,-941.2 508.5,-941.2"/>
+<polygon fill="none" stroke="#315b87" points="508.5,-941.2 508.5,-981.2 767.5,-981.2 767.5,-941.2 508.5,-941.2"/>
+<text xml:space="preserve" text-anchor="start" x="602.07" y="-963.3" font-family="Microsoft YaHei" font-size="11.00">&lt;&lt;immutable&gt;&gt;</text>
+<text xml:space="preserve" text-anchor="start" x="614.16" y="-952.3" font-family="Microsoft YaHei" font-weight="bold" font-size="11.00">SysConfig</text>
+<polygon fill="none" stroke="#315b87" points="508.5,-885.6 508.5,-941.2 767.5,-941.2 767.5,-885.6 508.5,-885.6"/>
+<text xml:space="preserve" text-anchor="start" x="516.5" y="-922.2" font-family="Microsoft YaHei" font-size="11.00">&#45; configKey : String {final}</text>
+<text xml:space="preserve" text-anchor="start" x="516.5" y="-909" font-family="Microsoft YaHei" font-size="11.00">&#45; configValue : String {final}</text>
+<text xml:space="preserve" text-anchor="start" x="516.5" y="-895.8" font-family="Microsoft YaHei" font-size="11.00">&#45; updatedAt : LocalDateTime {final}</text>
+<polygon fill="none" stroke="#315b87" points="507.5,-884.6 507.5,-982.2 768.5,-982.2 768.5,-884.6 507.5,-884.6"/>
+</g>
+<!-- OperationLog&#45;&gt;SysConfig -->
+<!-- StatQuery -->
+<g id="node4" class="node">
+<title>StatQuery</title>
+<polygon fill="#dce9f8" stroke="none" points="809.5,-955.8 809.5,-995.8 1008.5,-995.8 1008.5,-955.8 809.5,-955.8"/>
+<polygon fill="none" stroke="#315b87" points="809.5,-955.8 809.5,-995.8 1008.5,-995.8 1008.5,-955.8 809.5,-955.8"/>
+<text xml:space="preserve" text-anchor="start" x="873.07" y="-977.9" font-family="Microsoft YaHei" font-size="11.00">&lt;&lt;immutable&gt;&gt;</text>
+<text xml:space="preserve" text-anchor="start" x="884.56" y="-966.9" font-family="Microsoft YaHei" font-weight="bold" font-size="11.00">StatQuery</text>
+<polygon fill="none" stroke="#315b87" points="809.5,-900.2 809.5,-955.8 1008.5,-955.8 1008.5,-900.2 809.5,-900.2"/>
+<text xml:space="preserve" text-anchor="start" x="817.5" y="-936.8" font-family="Microsoft YaHei" font-size="11.00">&#45; from : LocalDate {final}</text>
+<text xml:space="preserve" text-anchor="start" x="817.5" y="-923.6" font-family="Microsoft YaHei" font-size="11.00">&#45; to : LocalDate {final}</text>
+<text xml:space="preserve" text-anchor="start" x="817.5" y="-910.4" font-family="Microsoft YaHei" font-size="11.00">&#45; userId : Integer {final}</text>
+<polygon fill="none" stroke="#315b87" points="809.5,-871 809.5,-900.2 1008.5,-900.2 1008.5,-871 809.5,-871"/>
+<text xml:space="preserve" text-anchor="start" x="817.5" y="-881.2" font-family="Microsoft YaHei" font-size="11.00">+ builder(...)</text>
+<polygon fill="none" stroke="#315b87" points="808.5,-870 808.5,-996.8 1009.5,-996.8 1009.5,-870 808.5,-870"/>
+</g>
+<!-- SysConfig&#45;&gt;StatQuery -->
+<!-- StatCounts -->
+<g id="node5" class="node">
+<title>StatCounts</title>
+<polygon fill="#dce9f8" stroke="none" points="851.5,-692.2 851.5,-732.2 1110.5,-732.2 1110.5,-692.2 851.5,-692.2"/>
+<polygon fill="none" stroke="#315b87" points="851.5,-692.2 851.5,-732.2 1110.5,-732.2 1110.5,-692.2 851.5,-692.2"/>
+<text xml:space="preserve" text-anchor="start" x="945.07" y="-714.3" font-family="Microsoft YaHei" font-size="11.00">&lt;&lt;immutable&gt;&gt;</text>
+<text xml:space="preserve" text-anchor="start" x="954.72" y="-703.3" font-family="Microsoft YaHei" font-weight="bold" font-size="11.00">StatCounts</text>
+<polygon fill="none" stroke="#315b87" points="851.5,-570.6 851.5,-692.2 1110.5,-692.2 1110.5,-570.6 851.5,-570.6"/>
+<text xml:space="preserve" text-anchor="start" x="859.5" y="-673.2" font-family="Microsoft YaHei" font-size="11.00">&#45; onSaleItemCount : long {final}</text>
+<text xml:space="preserve" text-anchor="start" x="859.5" y="-660" font-family="Microsoft YaHei" font-size="11.00">&#45; offShelfItemCount : long {final}</text>
+<text xml:space="preserve" text-anchor="start" x="859.5" y="-646.8" font-family="Microsoft YaHei" font-size="11.00">&#45; flowedItemCount : long {final}</text>
+<text xml:space="preserve" text-anchor="start" x="859.5" y="-633.6" font-family="Microsoft YaHei" font-size="11.00">&#45; pendingFlowCount : long {final}</text>
+<text xml:space="preserve" text-anchor="start" x="859.5" y="-620.4" font-family="Microsoft YaHei" font-size="11.00">&#45; dealFlowCount : long {final}</text>
+<text xml:space="preserve" text-anchor="start" x="859.5" y="-607.2" font-family="Microsoft YaHei" font-size="11.00">&#45; cancelledFlowCount : long {final}</text>
+<text xml:space="preserve" text-anchor="start" x="859.5" y="-594" font-family="Microsoft YaHei" font-size="11.00">&#45; itemCount : long {final}</text>
+<text xml:space="preserve" text-anchor="start" x="859.5" y="-580.8" font-family="Microsoft YaHei" font-size="11.00">&#45; flowCount : long {final}</text>
+<polygon fill="none" stroke="#315b87" points="851.5,-528.2 851.5,-570.6 1110.5,-570.6 1110.5,-528.2 851.5,-528.2"/>
+<text xml:space="preserve" text-anchor="start" x="859.5" y="-551.6" font-family="Microsoft YaHei" font-size="11.00">+ getItemCount(...)</text>
+<text xml:space="preserve" text-anchor="start" x="859.5" y="-538.4" font-family="Microsoft YaHei" font-size="11.00">+ getFlowCount(...)</text>
+<polygon fill="none" stroke="#315b87" points="850.5,-527.2 850.5,-733.2 1111.5,-733.2 1111.5,-527.2 850.5,-527.2"/>
+</g>
+<!-- CategoryStat&#45;&gt;StatCounts -->
+<g id="edge1" class="edge">
+<title>CategoryStat&#45;&gt;StatCounts</title>
+<path fill="none" stroke="#64748b" d="M175.38,-678.98C220.39,-716.58 275,-762.2 275,-762.2 275,-762.2 810,-762.2 810,-762.2 810,-762.2 827.12,-748.99 850.52,-730.92"/>
+<text xml:space="preserve" text-anchor="middle" x="491.45" y="-764.9" font-family="Microsoft YaHei" font-size="9.00">counts</text>
+<text xml:space="preserve" text-anchor="middle" x="848.27" y="-733.62" font-family="Microsoft YaHei" font-size="9.00">1</text>
+<text xml:space="preserve" text-anchor="middle" x="168.63" y="-681.68" font-family="Microsoft YaHei" font-size="9.00">0..*</text>
+</g>
+<!-- MonthStat -->
+<g id="node7" class="node">
+<title>MonthStat</title>
+<polygon fill="#dce9f8" stroke="none" points="275.5,-631.4 275.5,-671.4 494.5,-671.4 494.5,-631.4 275.5,-631.4"/>
+<polygon fill="none" stroke="#315b87" points="275.5,-631.4 275.5,-671.4 494.5,-671.4 494.5,-631.4 275.5,-631.4"/>
+<text xml:space="preserve" text-anchor="start" x="349.07" y="-653.5" font-family="Microsoft YaHei" font-size="11.00">&lt;&lt;immutable&gt;&gt;</text>
+<text xml:space="preserve" text-anchor="start" x="359.64" y="-642.5" font-family="Microsoft YaHei" font-weight="bold" font-size="11.00">MonthStat</text>
+<polygon fill="none" stroke="#315b87" points="275.5,-589 275.5,-631.4 494.5,-631.4 494.5,-589 275.5,-589"/>
+<text xml:space="preserve" text-anchor="start" x="283.5" y="-612.4" font-family="Microsoft YaHei" font-size="11.00">&#45; month : YearMonth {final}</text>
+<text xml:space="preserve" text-anchor="start" x="283.5" y="-599.2" font-family="Microsoft YaHei" font-size="11.00">&#45; counts : StatCounts {final}</text>
+<polygon fill="none" stroke="#315b87" points="274.5,-588 274.5,-672.4 495.5,-672.4 495.5,-588 274.5,-588"/>
+</g>
+<!-- CategoryStat&#45;&gt;MonthStat -->
+<!-- ValidationException -->
+<g id="node11" class="node">
+<title>ValidationException</title>
+<polygon fill="#dce9f8" stroke="none" points="23,-373.6 23,-404.8 211,-404.8 211,-373.6 23,-373.6"/>
+<polygon fill="none" stroke="#315b87" points="23,-373.6 23,-404.8 211,-404.8 211,-373.6 23,-373.6"/>
+<text xml:space="preserve" text-anchor="start" x="68.72" y="-386.9" font-family="Microsoft YaHei" font-weight="bold" font-size="11.00">ValidationException</text>
+<polygon fill="none" stroke="#315b87" points="23,-344.4 23,-373.6 211,-373.6 211,-344.4 23,-344.4"/>
+<text xml:space="preserve" text-anchor="start" x="31" y="-354.6" font-family="Microsoft YaHei" font-size="11.00">&#45; field : String {final}</text>
+<polygon fill="none" stroke="#315b87" points="23,-315.2 23,-344.4 211,-344.4 211,-315.2 23,-315.2"/>
+<text xml:space="preserve" text-anchor="start" x="31" y="-325.4" font-family="Microsoft YaHei" font-size="11.00">+ getField(...)</text>
+<polygon fill="none" stroke="#315b87" points="22,-314.2 22,-405.8 212,-405.8 212,-314.2 22,-314.2"/>
+</g>
+<!-- CategoryStat&#45;&gt;ValidationException -->
+<!-- MonthStat&#45;&gt;StatCounts -->
+<g id="edge2" class="edge">
+<title>MonthStat&#45;&gt;StatCounts</title>
+<path fill="none" stroke="#64748b" d="M433.19,-672.33C477.38,-710.96 536,-762.2 536,-762.2 536,-762.2 810,-762.2 810,-762.2 810,-762.2 827.12,-748.99 850.52,-730.92"/>
+<text xml:space="preserve" text-anchor="middle" x="618.57" y="-764.9" font-family="Microsoft YaHei" font-size="9.00">counts</text>
+<text xml:space="preserve" text-anchor="middle" x="848.27" y="-722.82" font-family="Microsoft YaHei" font-size="9.00">1</text>
+<text xml:space="preserve" text-anchor="middle" x="426.44" y="-675.03" font-family="Microsoft YaHei" font-size="9.00">0..*</text>
+</g>
+<!-- StatOverview -->
+<g id="node8" class="node">
+<title>StatOverview</title>
+<polygon fill="#dce9f8" stroke="none" points="537,-638 537,-678 809,-678 809,-638 537,-638"/>
+<polygon fill="none" stroke="#315b87" points="537,-638 537,-678 809,-678 809,-638 537,-638"/>
+<text xml:space="preserve" text-anchor="start" x="637.07" y="-660.1" font-family="Microsoft YaHei" font-size="11.00">&lt;&lt;immutable&gt;&gt;</text>
+<text xml:space="preserve" text-anchor="start" x="640.93" y="-649.1" font-family="Microsoft YaHei" font-weight="bold" font-size="11.00">StatOverview</text>
+<polygon fill="none" stroke="#315b87" points="537,-582.4 537,-638 809,-638 809,-582.4 537,-582.4"/>
+<text xml:space="preserve" text-anchor="start" x="545" y="-619" font-family="Microsoft YaHei" font-size="11.00">&#45; counts : StatCounts {final}</text>
+<text xml:space="preserve" text-anchor="start" x="545" y="-605.8" font-family="Microsoft YaHei" font-size="11.00">&#45; userCount : long {final}</text>
+<text xml:space="preserve" text-anchor="start" x="545" y="-592.6" font-family="Microsoft YaHei" font-size="11.00">&#45; averageCreditScore : double {final}</text>
+<polygon fill="none" stroke="#315b87" points="536,-581.4 536,-679 810,-679 810,-581.4 536,-581.4"/>
+</g>
+<!-- MonthStat&#45;&gt;StatOverview -->
+<!-- StatOverview&#45;&gt;StatCounts -->
+<g id="edge3" class="edge">
+<title>StatOverview&#45;&gt;StatCounts</title>
+<path fill="none" stroke="#64748b" d="M809.85,-581.4C823.15,-581.4 838.19,-581.4 850.77,-581.4"/>
+<text xml:space="preserve" text-anchor="middle" x="836.19" y="-573.3" font-family="Microsoft YaHei" font-size="9.00">counts</text>
+<text xml:space="preserve" text-anchor="middle" x="848.52" y="-584.1" font-family="Microsoft YaHei" font-size="9.00">1</text>
+<text xml:space="preserve" text-anchor="middle" x="803.1" y="-573.3" font-family="Microsoft YaHei" font-size="9.00">0..*</text>
+</g>
+<!-- StatOverview&#45;&gt;StatCounts -->
+<!-- ErrorCode -->
+<g id="node9" class="node">
+<title>ErrorCode</title>
+<polygon fill="#dce9f8" stroke="none" points="494.5,-369.2 494.5,-409.2 693.5,-409.2 693.5,-369.2 494.5,-369.2"/>
+<polygon fill="none" stroke="#315b87" points="494.5,-369.2 494.5,-409.2 693.5,-409.2 693.5,-369.2 494.5,-369.2"/>
+<text xml:space="preserve" text-anchor="start" x="569.37" y="-391.3" font-family="Microsoft YaHei" font-size="11.00">&lt;&lt;enum&gt;&gt;</text>
+<text xml:space="preserve" text-anchor="start" x="568.04" y="-380.3" font-family="Microsoft YaHei" font-weight="bold" font-size="11.00">ErrorCode</text>
+<polygon fill="none" stroke="#315b87" points="494.5,-340 494.5,-369.2 693.5,-369.2 693.5,-340 494.5,-340"/>
+<text xml:space="preserve" text-anchor="start" x="502.5" y="-350.2" font-family="Microsoft YaHei" font-size="11.00">&#45; message : String {final}</text>
+<polygon fill="none" stroke="#315b87" points="494.5,-310.8 494.5,-340 693.5,-340 693.5,-310.8 494.5,-310.8"/>
+<text xml:space="preserve" text-anchor="start" x="502.5" y="-321" font-family="Microsoft YaHei" font-size="11.00">+ getMessage(...)</text>
+<polygon fill="none" stroke="#315b87" points="493.5,-309.8 493.5,-410.2 694.5,-410.2 694.5,-309.8 493.5,-309.8"/>
+</g>
+<!-- DataAccessException -->
+<g id="node12" class="node">
+<title>DataAccessException</title>
+<polygon fill="#dce9f8" stroke="none" points="736,-344.4 736,-375.6 924,-375.6 924,-344.4 736,-344.4"/>
+<polygon fill="none" stroke="#315b87" points="736,-344.4 736,-375.6 924,-375.6 924,-344.4 736,-344.4"/>
+<text xml:space="preserve" text-anchor="start" x="779.59" y="-357.7" font-family="Microsoft YaHei" font-weight="bold" font-size="11.00">DataAccessException</text>
+<polygon fill="none" stroke="#315b87" points="735,-343.4 735,-376.6 925,-376.6 925,-343.4 735,-343.4"/>
+</g>
+<!-- ErrorCode&#45;&gt;DataAccessException -->
+<!-- BusinessException -->
+<g id="node10" class="node">
+<title>BusinessException</title>
+<polygon fill="#dce9f8" stroke="none" points="253.5,-373.6 253.5,-404.8 452.5,-404.8 452.5,-373.6 253.5,-373.6"/>
+<polygon fill="none" stroke="#315b87" points="253.5,-373.6 253.5,-404.8 452.5,-404.8 452.5,-373.6 253.5,-373.6"/>
+<text xml:space="preserve" text-anchor="start" x="309.3" y="-386.9" font-family="Microsoft YaHei" font-weight="bold" font-size="11.00">BusinessException</text>
+<polygon fill="none" stroke="#315b87" points="253.5,-344.4 253.5,-373.6 452.5,-373.6 452.5,-344.4 253.5,-344.4"/>
+<text xml:space="preserve" text-anchor="start" x="261.5" y="-354.6" font-family="Microsoft YaHei" font-size="11.00">&#45; code : ErrorCode {final}</text>
+<polygon fill="none" stroke="#315b87" points="253.5,-315.2 253.5,-344.4 452.5,-344.4 452.5,-315.2 253.5,-315.2"/>
+<text xml:space="preserve" text-anchor="start" x="261.5" y="-325.4" font-family="Microsoft YaHei" font-size="11.00">+ getCode(...)</text>
+<polygon fill="none" stroke="#315b87" points="252.5,-314.2 252.5,-405.8 453.5,-405.8 453.5,-314.2 252.5,-314.2"/>
+</g>
+<!-- BusinessException&#45;&gt;ErrorCode -->
+<g id="edge5" class="edge">
+<title>BusinessException&#45;&gt;ErrorCode</title>
+<path fill="none" stroke="#64748b" stroke-dasharray="5,2" d="M433.28,-314.23C433.31,-314.21 433.33,-314.2 433.33,-314.2 433.33,-314.2 462.43,-314.2 485.61,-314.2"/>
+<polygon fill="#64748b" stroke="#64748b" points="492.59,-314.2 485.59,-317.35 490.31,-314.2 485.59,-314.2 485.59,-314.2 485.59,-314.2 490.31,-314.2 485.59,-311.05 492.59,-314.2"/>
+<text xml:space="preserve" text-anchor="middle" x="433.82" y="-306.1" font-family="Microsoft YaHei" font-size="9.00">fixed message</text>
+</g>
+<!-- BusinessException&#45;&gt;ErrorCode -->
+<!-- ValidationException&#45;&gt;BusinessException -->
+<g id="edge4" class="edge">
+<title>ValidationException&#45;&gt;BusinessException</title>
+<path fill="none" stroke="#64748b" d="M195.61,-314.23C195.65,-314.21 195.67,-314.2 195.67,-314.2 195.67,-314.2 245.62,-314.2 265.94,-314.22"/>
+<polygon fill="none" stroke="#64748b" points="265.87,-316.67 272.88,-314.23 265.88,-311.77 265.87,-316.67"/>
+<text xml:space="preserve" text-anchor="middle" x="217.03" y="-306.11" font-family="Microsoft YaHei" font-size="9.00">extends</text>
+</g>
+<!-- ValidationException&#45;&gt;BusinessException -->
+<!-- CsvExporter -->
+<g id="node13" class="node">
+<title>CsvExporter</title>
+<polygon fill="#dce9f8" stroke="none" points="23,-95.4 23,-126.6 211,-126.6 211,-95.4 23,-95.4"/>
+<polygon fill="none" stroke="#315b87" points="23,-95.4 23,-126.6 211,-126.6 211,-95.4 23,-95.4"/>
+<text xml:space="preserve" text-anchor="start" x="86.76" y="-108.7" font-family="Microsoft YaHei" font-weight="bold" font-size="11.00">CsvExporter</text>
+<polygon fill="none" stroke="#315b87" points="23,-66.2 23,-95.4 211,-95.4 211,-66.2 23,-66.2"/>
+<text xml:space="preserve" text-anchor="start" x="31" y="-76.4" font-family="Microsoft YaHei" font-size="11.00">+ export(...)</text>
+<polygon fill="none" stroke="#315b87" points="22,-65.2 22,-127.6 212,-127.6 212,-65.2 22,-65.2"/>
+</g>
+<!-- ValidationException&#45;&gt;CsvExporter -->
+<!-- AppLogger -->
+<g id="node14" class="node">
+<title>AppLogger</title>
+<polygon fill="#dce9f8" stroke="none" points="253,-136.4 253,-167.6 579,-167.6 579,-136.4 253,-136.4"/>
+<polygon fill="none" stroke="#315b87" points="253,-136.4 253,-167.6 579,-167.6 579,-136.4 253,-136.4"/>
+<text xml:space="preserve" text-anchor="start" x="389.11" y="-149.7" font-family="Microsoft YaHei" font-weight="bold" font-size="11.00">AppLogger</text>
+<polygon fill="none" stroke="#315b87" points="253,-67.6 253,-136.4 579,-136.4 579,-67.6 253,-67.6"/>
+<text xml:space="preserve" text-anchor="start" x="261" y="-117.4" font-family="Microsoft YaHei" font-size="11.00">&#45; clock : Clock {final}</text>
+<text xml:space="preserve" text-anchor="start" x="261" y="-104.2" font-family="Microsoft YaHei" font-size="11.00">&#45; delegate : java.util.logging.Logger {final}</text>
+<text xml:space="preserve" text-anchor="start" x="261" y="-91" font-family="Microsoft YaHei" font-size="11.00">&#45; handler : DailyLogHandler {final}</text>
+<text xml:space="preserve" text-anchor="start" x="261" y="-77.8" font-family="Microsoft YaHei" font-size="11.00">&#45; closed : boolean</text>
+<polygon fill="none" stroke="#315b87" points="253,-25.2 253,-67.6 579,-67.6 579,-25.2 253,-25.2"/>
+<text xml:space="preserve" text-anchor="start" x="261" y="-48.6" font-family="Microsoft YaHei" font-size="11.00">+ log(...)</text>
+<text xml:space="preserve" text-anchor="start" x="261" y="-35.4" font-family="Microsoft YaHei" font-size="11.00">+ close(...)</text>
+<polygon fill="none" stroke="#315b87" points="252,-24.2 252,-168.6 580,-168.6 580,-24.2 252,-24.2"/>
+</g>
+<!-- CsvExporter&#45;&gt;AppLogger -->
+<!-- DailyLogHandler -->
+<g id="node15" class="node">
+<title>DailyLogHandler</title>
+<polygon fill="#dce9f8" stroke="none" points="621.5,-151.8 621.5,-191.8 880.5,-191.8 880.5,-151.8 621.5,-151.8"/>
+<polygon fill="none" stroke="#315b87" points="621.5,-151.8 621.5,-191.8 880.5,-191.8 880.5,-151.8 621.5,-151.8"/>
+<text xml:space="preserve" text-anchor="start" x="721.79" y="-173.9" font-family="Microsoft YaHei" font-size="11.00">&lt;&lt;internal&gt;&gt;</text>
+<text xml:space="preserve" text-anchor="start" x="709.75" y="-162.9" font-family="Microsoft YaHei" font-weight="bold" font-size="11.00">DailyLogHandler</text>
+<polygon fill="none" stroke="#315b87" points="621.5,-43.4 621.5,-151.8 880.5,-151.8 880.5,-43.4 621.5,-43.4"/>
+<text xml:space="preserve" text-anchor="start" x="629.5" y="-132.8" font-family="Microsoft YaHei" font-size="11.00">&#45; directory : Path {final}</text>
+<text xml:space="preserve" text-anchor="start" x="629.5" y="-119.6" font-family="Microsoft YaHei" font-size="11.00">&#45; zone : ZoneId {final}</text>
+<text xml:space="preserve" text-anchor="start" x="629.5" y="-106.4" font-family="Microsoft YaHei" font-size="11.00">&#45; lockChannel : FileChannel {final}</text>
+<text xml:space="preserve" text-anchor="start" x="629.5" y="-93.2" font-family="Microsoft YaHei" font-size="11.00">&#45; directoryLock : FileLock {final}</text>
+<text xml:space="preserve" text-anchor="start" x="629.5" y="-80" font-family="Microsoft YaHei" font-size="11.00">&#45; writer : BufferedWriter</text>
+<text xml:space="preserve" text-anchor="start" x="629.5" y="-66.8" font-family="Microsoft YaHei" font-size="11.00">&#45; openDate : LocalDate</text>
+<text xml:space="preserve" text-anchor="start" x="629.5" y="-53.6" font-family="Microsoft YaHei" font-size="11.00">&#45; closed : boolean</text>
+<polygon fill="none" stroke="#315b87" points="621.5,-1 621.5,-43.4 880.5,-43.4 880.5,-1 621.5,-1"/>
+<text xml:space="preserve" text-anchor="start" x="629.5" y="-24.4" font-family="Microsoft YaHei" font-size="11.00">+ publish(...)</text>
+<text xml:space="preserve" text-anchor="start" x="629.5" y="-11.2" font-family="Microsoft YaHei" font-size="11.00">+ close(...)</text>
+<polygon fill="none" stroke="#315b87" points="620.5,0 620.5,-192.8 881.5,-192.8 881.5,0 620.5,0"/>
+</g>
+<!-- AppLogger&#45;&gt;DailyLogHandler -->
+<g id="edge6" class="edge">
+<title>AppLogger&#45;&gt;DailyLogHandler</title>
+<path fill="none" stroke="#64748b" d="M589.11,-24.2C600.54,-24.2 611.66,-24.2 620.52,-24.2"/>
+<polygon fill="#64748b" stroke="#64748b" points="589.2,-24.2 585,-27 580.8,-24.2 585.01,-21.4 589.2,-24.2"/>
+<text xml:space="preserve" text-anchor="middle" x="580.81" y="-16.1" font-family="Microsoft YaHei" font-size="9.00">owns / closes</text>
+</g>
+<!-- AppLogger&#45;&gt;DailyLogHandler -->
+<!-- SafeLogFormatter -->
+<g id="node16" class="node">
+<title>SafeLogFormatter</title>
+<polygon fill="#dce9f8" stroke="none" points="923,-105.6 923,-145.6 1209,-145.6 1209,-105.6 923,-105.6"/>
+<polygon fill="none" stroke="#315b87" points="923,-105.6 923,-145.6 1209,-145.6 1209,-105.6 923,-105.6"/>
+<text xml:space="preserve" text-anchor="start" x="1036.79" y="-127.7" font-family="Microsoft YaHei" font-size="11.00">&lt;&lt;internal&gt;&gt;</text>
+<text xml:space="preserve" text-anchor="start" x="1022.32" y="-116.7" font-family="Microsoft YaHei" font-weight="bold" font-size="11.00">SafeLogFormatter</text>
+<polygon fill="none" stroke="#315b87" points="923,-76.4 923,-105.6 1209,-105.6 1209,-76.4 923,-76.4"/>
+<text xml:space="preserve" text-anchor="start" x="931" y="-86.6" font-family="Microsoft YaHei" font-size="11.00">&#45; timestamp : DateTimeFormatter {final}</text>
+<polygon fill="none" stroke="#315b87" points="923,-47.2 923,-76.4 1209,-76.4 1209,-47.2 923,-47.2"/>
+<text xml:space="preserve" text-anchor="start" x="931" y="-57.4" font-family="Microsoft YaHei" font-size="11.00">+ format(...)</text>
+<polygon fill="none" stroke="#315b87" points="922,-46.2 922,-146.6 1210,-146.6 1210,-46.2 922,-46.2"/>
+</g>
+<!-- DailyLogHandler&#45;&gt;SafeLogFormatter -->
+<g id="edge7" class="edge">
+<title>DailyLogHandler&#45;&gt;SafeLogFormatter</title>
+<path fill="none" stroke="#64748b" stroke-dasharray="5,2" d="M881.42,0C912.49,0 961,0 961,0 961,0 982.11,-19.38 1005.39,-40.76"/>
+<polygon fill="#64748b" stroke="#64748b" points="1010.45,-45.4 1003.16,-42.99 1008.77,-43.86 1005.29,-40.67 1005.29,-40.67 1005.29,-40.67 1008.77,-43.86 1007.42,-38.35 1010.45,-45.4"/>
+<text xml:space="preserve" text-anchor="middle" x="937.59" y="-2.7" font-family="Microsoft YaHei" font-size="9.00">formats</text>
+</g>
+<!-- DailyLogHandler&#45;&gt;SafeLogFormatter -->
+</g>
+</g><rect x="20" y="1177" width="1260" height="81" fill="#fff8dc" stroke="#d1ad4b"/><text x="30" y="1195" font-size="12">SessionUser.from(User) 只复制五个安全字段，不是身份凭证；OperationLog.userId 可为 null。</text><text x="30" y="1216" font-size="12">BusinessException 与 DataAccessException 均为 RuntimeException，彼此不继承。CSV / AppLogger 的 I/O 故障为 IOException。</text><text x="30" y="1237" font-size="12">StatCounts 区分物品与意向；配置按原文读取；文件日志独立于数据库 operation_log。</text></svg>
