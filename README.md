@@ -34,7 +34,8 @@ mvn "-Dmaven.repo.local=.mvn-cache" test
 - 已完成模块十二：JDK 运行日志、按天追加、七天清理、DEBUG 开关与安全异常栈；新增 17 项，当前共 253 项测试，package 通过。
 - 已完成模块十三：同步迭代二类图、六张接入时序图、状态图及九 DAO 的完整接口清单，入口见 [迭代二设计图册](docs/design/iteration2/README.md)。
 - 已完成模块十四：整理独立的 [迭代二系统设计说明书](文本文档/04_迭代2_系统设计说明书.docx)，涵盖当前实现、事务与接入边界及全部 DAO 签名。
-- 后续待办：Service、SessionManager 与 GUI 接入等；统计业务与公共工具的分工仍需明确。
+- 成员一范围已完成本机验收：数据层、公共工具与配套设计交接，见 [成员一交付与验收清单](docs/development/iteration2-member1-completion.md)。2026年11月21日重新执行 253 项测试及 package，全部通过。
+- 后续团队接入：Service、SessionManager 与 GUI；用户本次明确统计业务交给成员二，成员一提供统计 DAO 与公共工具。
 
 完整核对结果、事务模板更正及成员交接清单见 [数据层验收与交接记录](docs/development/iteration2-data-acceptance.md)。数据层验收通过不代表整个迭代二已经完成。
 
