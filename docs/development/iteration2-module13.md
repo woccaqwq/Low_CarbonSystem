@@ -27,6 +27,8 @@ node scripts/render-iteration2-diagrams.cjs --check
 已完成十张预览的布局检查和独立只读核对；按核对意见明确取消其他意向允许返回 0，并细化 CSV 清理失败的 suppressed 语义。图与清单已重新生成校验。
 本模块没有修改 Java/SQL，没有新增业务测试，也没有重跑 Maven。253 项通过属于模块十二代码基线 `1b3ae6f` 的已验证结果。
 
+2026年11月21日合并 main 时补充 `.gitattributes`：Java 输入和本目录生成文本固定使用 LF，避免 Windows 的 `core.autocrlf=true` 改变源码摘要或造成生成文件字节比较误报。已用临时全新检出复现旧规则下 `dao-api.md` 过期误报，并验证新规则下十张图检查通过；PNG 继续由 Git 自动识别为二进制。合并后的全量 clean package 也已通过 253 项测试。
+
 ## Git
 
 依用户“每两个模块提交一次”的约定，本模块十三与 [模块十四](iteration2-module14.md) 一起纳入第二次本地检查点，详见 [检查点记录](git-checkpoints.md)。不自动推送。

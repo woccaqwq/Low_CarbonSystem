@@ -1,0 +1,4 @@
+# Diagram checks hash Java/model text and compare generated text byte-for-byte.
+# Keep those inputs and outputs stable across Windows and Unix checkouts.
+src/main/java/**/*.java text eol=lf
+docs/design/iteration2/* text=auto eol=lf
