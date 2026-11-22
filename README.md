@@ -36,6 +36,7 @@ mvn "-Dmaven.repo.local=.mvn-cache" test
 - 已完成模块十四：整理独立的 [迭代二系统设计说明书](文本文档/04_迭代2_系统设计说明书.docx)，涵盖当前实现、事务与接入边界及全部 DAO 签名。
 - 成员一范围已完成本机验收：数据层、公共工具与配套设计交接，见 [成员一交付与验收清单](docs/development/iteration2-member1-completion.md)。2026年11月21日重新执行 253 项测试及 package，全部通过。
 - 后续团队接入：Service、SessionManager 与 GUI；用户本次明确统计业务交给成员二，成员一提供统计 DAO 与公共工具。
+- 已完成成员二迭代二业务层：UserService、ItemService、FlowService、ReviewService、StatService、AdminService 六个服务及工厂、会话快照与统一事务模板；新增 24 项业务层测试，全量共 277 项测试通过，package 成功。见 [成员二业务层交付说明](docs/development/iteration2-member2-completion.md)。当前仍无 GUI 与启动入口，成员三负责界面集成。
 
 完整核对结果、事务模板更正及成员交接清单见 [数据层验收与交接记录](docs/development/iteration2-data-acceptance.md)。数据层验收通过不代表整个迭代二已经完成。
 

@@ -13,6 +13,12 @@ public enum ErrorCode {
     PERMISSION_DENIED("没有操作权限"),
     REVIEW_NOT_ALLOWED("当前不可评价：未成交或已评价"),
     FLOW_NOT_FOUND("流转记录不存在"),
+    ITEM_NOT_FOUND("物品不存在"),
+    CATEGORY_NOT_FOUND("分类不存在"),
+    USER_NOT_FOUND_BY_ID("用户不存在"),
+    LOGIN_LOCKED("登录失败次数过多，请稍后再试"),
+    CSV_EXPORT_FAILED("报表导出失败，请检查目标路径"),
+    CONFIG_INVALID("系统统计配置缺失或无效，请联系管理员"),
     DB_ERROR("数据操作失败，请联系管理员"),
     VALIDATION_ERROR("输入参数不合法，请检查后重试");
 
